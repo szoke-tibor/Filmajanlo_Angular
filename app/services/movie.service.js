@@ -21,7 +21,7 @@ var MovieService = (function () {
         });
     }
     MovieService.prototype.getMovies = function () {
-        return this.http.get("https://api.trakt.tv/movies/popular", { headers: this.headers });
+        return this.http.get("https://api.trakt.tv/movies/popular?extended=full", { headers: this.headers });
     };
     return MovieService;
 }());

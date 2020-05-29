@@ -16,6 +16,6 @@ export class MovieService {
     }
 
     getMovies() : Observable<Movie[]> {
-        return this.http.get<Movie[]>("https://api.trakt.tv/movies/popular", {headers: this.headers});
+        return this.http.get<Movie[]>("https://api.trakt.tv/movies/popular?extended=full", {headers: this.headers});
     }
 }

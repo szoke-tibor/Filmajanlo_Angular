@@ -1,4 +1,24 @@
-<div *ngFor='let movie of movies'>
-    <dt>Title:{{movie.title}}</dt>
-    <dt>Year:{{movie.year}}</dt>
+<div class="col-lg-2 panel panel-info">
+    <div *ngFor="let movie of movies">
+        <dt>
+            <a [class.active]="movie === selectedMovie" (click)="selectedMovie = movie">
+                <h6 class="text-info">Title:{{movie.title}}
+                <p>Year:{{movie.year}}</p></h6>
+            </a>
+        </dt>
+    </div>
+</div>
+
+<div class="col-lg-3 panel panel-info" *ngIf="selectedMovie">
+    <h6 class="text-info">
+        <p>Title:{{selectedMovie.title}}</p>
+        <p>Year:{{selectedMovie.year}}</p>
+        <p>Rating:{{selectedMovie.rating}}</p>
+        <p>Trailer:{{selectedMovie.trailer}}</p>
+        <p>Language:{{selectedMovie.language}}</p>
+        <p>Genres:</p>
+        <p *ngFor="let genre of selectedMovie.genres">
+            {{genre}}
+        </p>
+    </h6>
 </div>

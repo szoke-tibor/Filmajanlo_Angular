@@ -7,4 +7,8 @@ export interface Movie {
       imdb: string;
       tmdb: number;
     }
+    rating: number;
+    trailer: string;
+    language: string;
+    genres: string[];
 }

@@ -18,7 +18,11 @@ var MoviePageComponent = (function () {
     MoviePageComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.movieService.getMovies()
-            .subscribe(function (movies) { return _this.movies = movies; });
+            .subscribe(function (movies) { return _this.asd(movies); });
+    };
+    MoviePageComponent.prototype.asd = function (movies) {
+        this.movies = movies;
+        console.log(JSON.stringify(movies));
     };
     return MoviePageComponent;
 }());

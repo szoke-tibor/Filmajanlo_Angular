@@ -16,11 +16,17 @@ import * as _ from "lodash";
 export class MoviePageComponent implements OnInit {
 
     movies: Movie[];
+    selectedMovie: Movie;
 
     constructor(private movieService : MovieService) { }
     
     ngOnInit(): void {
         this.movieService.getMovies()
-        .subscribe(movies => this.movies = movies);
+        .subscribe(movies => this.asd(movies));
+    }
+
+    asd(movies: Movie[]) {
+        this.movies = movies;
+        console.log(JSON.stringify(movies));
     }
 }
