@@ -10,6 +10,7 @@
         '@angular/compiler': 'angular:compiler/bundles/compiler.umd.js',
         '@angular/platform-browser': 'angular:platform-browser/bundles/platform-browser.umd.js',
         '@angular/platform-browser-dynamic': 'angular:platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
+        '@angular/http': 'angular:http/bundles/http.umd.js',
         '@angular/router': 'angular:router/bundles/router.umd.js',
         '@angular/router/upgrade': 'angular:router/bundles/router-upgrade.umd.js',
         '@angular/forms': 'angular:forms/bundles/forms.umd.js',

@@ -1,4 +1,4 @@
 ﻿import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { BusinessCardAppModule } from './app/business-card-app.module';
+import { MovieWorldAppModule } from './app/movie-world-app.module';
 
-platformBrowserDynamic().bootstrapModule(BusinessCardAppModule);
+platformBrowserDynamic().bootstrapModule(MovieWorldAppModule);
