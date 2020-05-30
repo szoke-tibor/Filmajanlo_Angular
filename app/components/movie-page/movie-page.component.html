@@ -14,11 +14,13 @@
         <p>Title:{{selectedMovie.title}}</p>
         <p>Year:{{selectedMovie.year}}</p>
         <p>Rating:{{selectedMovie.rating}}</p>
-        <p>Trailer:{{selectedMovie.trailer}}</p>
+        <p>Trailer: <a href="{{selectedMovie.trailer}}">Link</a></p>
         <p>Language:{{selectedMovie.language}}</p>
-        <p>Genres:</p>
-        <p *ngFor="let genre of selectedMovie.genres">
-            {{genre}}
+        <p>
+            Genres:
+            <em *ngFor="let genre of selectedMovie.genres">
+                {{genre}}
+            </em>
         </p>
     </h6>
 </div>
