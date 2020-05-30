@@ -14,15 +14,24 @@ var movie_service_1 = require("../../services/movie.service");
 var MoviePageComponent = (function () {
     function MoviePageComponent(movieService) {
         this.movieService = movieService;
+        this.pageSize = 10;
+        this.currentPage = 1;
+        this.queryString = "";
     }
     MoviePageComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.movieService.getMovies()
-            .subscribe(function (movies) { return _this.asd(movies); });
+        this.getMovies();
     };
-    MoviePageComponent.prototype.asd = function (movies) {
-        this.movies = movies;
-        console.log(JSON.stringify(movies));
+    MoviePageComponent.prototype.getMovies = function () {
+        var _this = this;
+        this.movieService.getMovies({
+            pageSize: this.pageSize,
+            page: this.currentPage,
+            query: this.queryString
+        })
+            .subscribe(function (movies) {
+            _this.movies = movies;
+            _this.lastPage = movies.length < 10 ? true : false;
+        });
     };
     return MoviePageComponent;
 }());

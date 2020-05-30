@@ -20,8 +20,11 @@ var MovieService = (function () {
             "trakt-api-version": "2"
         });
     }
-    MovieService.prototype.getMovies = function () {
-        return this.http.get("https://api.trakt.tv/movies/popular?extended=full", { headers: this.headers });
+    MovieService.prototype.getMovies = function (options) {
+        var page = (options && options.page) || 1;
+        var pageSize = (options && options.pageSize) || 10;
+        var query = (options && options.query) || "";
+        return this.http.get("https://api.trakt.tv/movies/popular?extended=full&page=" + page + "&limit=" + pageSize + "&query=" + query, { headers: this.headers });
     };
     return MovieService;
 }());

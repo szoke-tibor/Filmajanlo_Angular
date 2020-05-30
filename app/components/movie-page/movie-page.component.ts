@@ -18,15 +18,30 @@ export class MoviePageComponent implements OnInit {
     movies: Movie[];
     selectedMovie: Movie;
 
-    constructor(private movieService : MovieService) { }
+    pageSize: number;
+    currentPage: number;
+    lastPage: boolean;
+    queryString: string;
+
+    constructor(private movieService : MovieService) {
+        this.pageSize = 10;
+        this.currentPage = 1;
+        this.queryString = "";
+    }
     
     ngOnInit(): void {
-        this.movieService.getMovies()
-        .subscribe(movies => this.asd(movies));
+        this.getMovies();
     }
 
-    asd(movies: Movie[]) {
-        this.movies = movies;
-        console.log(JSON.stringify(movies));
+    getMovies() {
+        this.movieService.getMovies({
+            pageSize: this.pageSize,
+            page: this.currentPage,
+            query: this.queryString
+        })
+        .subscribe(movies => {
+            this.movies = movies;
+            this.lastPage = movies.length < 10 ? true : false;
+        });
     }
 }

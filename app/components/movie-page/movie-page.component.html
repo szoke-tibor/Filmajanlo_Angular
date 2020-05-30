@@ -1,4 +1,6 @@
-<div class="col-lg-2 panel panel-info">
+<div class="col-lg-3 panel panel-info">
+    <input class="form-control" placeholder="Search for movies..." [(ngModel)]="queryString"
+            (keyup)="currentPage=1;getMovies()">
     <div *ngFor="let movie of movies">
         <dt>
             <a [class.active]="movie === selectedMovie" (click)="selectedMovie = movie">
@@ -6,6 +8,19 @@
                 <p>Year:{{movie.year}}</p></h6>
             </a>
         </dt>
+    </div>
+    <div class="paging">
+        <button class="col-xs-4 btn btn-info" [disabled]="currentPage <= 1"
+            (click)="currentPage=currentPage-1;getMovies()">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+        </button>
+        <div class="col-xs-4 page-numbers">
+            {{currentPage}}
+        </div>
+        <button class="col-xs-4 btn btn-info" [disabled]="lastPage"
+            (click)="currentPage=currentPage+1;getMovies()">
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </button>
     </div>
 </div>
 
@@ -22,5 +37,7 @@
                 {{genre}}
             </em>
         </p>
+        <p>Description:</p>
+        <p>{{selectedMovie.overview}}</p>
     </h6>
 </div>

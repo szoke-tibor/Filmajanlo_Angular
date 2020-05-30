@@ -11,4 +11,5 @@ export interface Movie {
     trailer: string;
     language: string;
     genres: string[];
+    overview: string;
 }

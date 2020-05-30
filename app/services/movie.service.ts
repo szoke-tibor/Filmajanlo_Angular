@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from "rxjs/Rx";
 import { Movie } from '../models/movie.type';
 
@@ -15,7 +15,10 @@ export class MovieService {
         });
     }
 
-    getMovies() : Observable<Movie[]> {
-        return this.http.get<Movie[]>("https://api.trakt.tv/movies/popular?extended=full", {headers: this.headers});
+    getMovies(options?: { pageSize?: number, page?: number, query?: string }) : Observable<Movie[]>{
+        let page = (options && options.page) || 1;
+        let pageSize = (options && options.pageSize) || 10;
+        let query = (options && options.query) || "";
+        return this.http.get<Movie[]>(`https://api.trakt.tv/movies/popular?extended=full&page=${page}&limit=${pageSize}&query=${query}`, {headers: this.headers});
     }
 }
