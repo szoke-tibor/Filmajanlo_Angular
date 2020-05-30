@@ -15,12 +15,7 @@ import * as _ from "lodash";
 })
 export class PersonPageComponent implements OnInit {
 
-    people: Person[];
-
     constructor(private personService : PersonService) { }
     
-    ngOnInit(): void {
-        this.personService.getPeople()
-        .subscribe(people => this.people = people);
-    }
+    ngOnInit(): void { }
 }

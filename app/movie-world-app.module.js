@@ -26,7 +26,7 @@ var routes = [
     { path: "shows", component: show_page_component_1.ShowPageComponent },
     { path: "shows/:id", component: show_page_component_1.ShowPageComponent },
     { path: "people", component: person_page_component_1.PersonPageComponent },
-    { path: "people/:id", component: person_page_component_1.PersonPageComponent }
+    { path: "actor/:id", component: person_page_component_1.PersonPageComponent }
 ];
 var MovieWorldAppModule = (function () {
     function MovieWorldAppModule() {

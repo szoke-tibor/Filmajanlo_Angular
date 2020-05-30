@@ -20,8 +20,8 @@ var PersonService = (function () {
             "trakt-api-version": "2"
         });
     }
-    PersonService.prototype.getPeople = function () {
-        return this.http.get("https://api.trakt.tv/people/bryan-cranston");
+    PersonService.prototype.getPeopleOfMovie = function (movieId) {
+        return this.http.get("https://api.trakt.tv/movies/" + movieId + "/people", { headers: this.headers });
     };
     return PersonService;
 }());

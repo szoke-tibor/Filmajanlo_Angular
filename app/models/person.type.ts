@@ -5,5 +5,6 @@ export interface Person {
         slug: string;
         imdb: string;
         tmdb: number;
+        tvrage: number;
     }
 }

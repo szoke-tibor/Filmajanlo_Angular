@@ -1,3 +1,7 @@
+import { People } from "./people.type";
+import { Cast } from "./cast.type";
+import { Person } from "./person.type";
+
 export interface Movie {
     title: string;
     year: number;
@@ -12,4 +16,5 @@ export interface Movie {
     language: string;
     genres: string[];
     overview: string;
+    actors: Person[];
 }

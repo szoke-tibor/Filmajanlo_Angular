@@ -19,7 +19,7 @@ let routes: Route[] = [
     { path: "shows", component: ShowPageComponent },
     { path: "shows/:id", component: ShowPageComponent },
     { path: "people", component: PersonPageComponent },
-    { path: "people/:id", component: PersonPageComponent }
+    { path: "actor/:id", component: PersonPageComponent }
 ];
 
 @NgModule({

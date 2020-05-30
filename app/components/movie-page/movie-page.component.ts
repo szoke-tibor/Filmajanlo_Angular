@@ -8,6 +8,8 @@ import { ShowService } from "../../services/show.service";
 import { Person } from "../../models/person.type";
 import { PersonService } from "../../services/person.service";
 import * as _ from "lodash";
+import { Cast } from "../../models/cast.type";
+import { People } from "../../models/people.type";
 
 @Component({
     selector: "movie-page",
@@ -17,13 +19,15 @@ export class MoviePageComponent implements OnInit {
 
     movies: Movie[];
     selectedMovie: Movie;
+    people: People;
 
     pageSize: number;
     currentPage: number;
     lastPage: boolean;
     queryString: string;
 
-    constructor(private movieService : MovieService) {
+    constructor(private movieService : MovieService,
+                private personService: PersonService) {
         this.pageSize = 10;
         this.currentPage = 1;
         this.queryString = "";
@@ -42,6 +46,16 @@ export class MoviePageComponent implements OnInit {
         .subscribe(movies => {
             this.movies = movies;
             this.lastPage = movies.length < 10 ? true : false;
+        });
+    }
+
+    getCharacters() {
+        this.personService.getPeopleOfMovie(this.selectedMovie.ids.trakt)
+        .subscribe(people => {
+            this.people = people;
+            this.selectedMovie.actors = [];
+            this.people.cast.forEach(cast => this.selectedMovie.actors.push(cast.person));
+            console.log(this.selectedMovie.actors);
         });
     }
 }

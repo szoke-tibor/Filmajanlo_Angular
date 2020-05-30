@@ -15,11 +15,7 @@ var PersonPageComponent = (function () {
     function PersonPageComponent(personService) {
         this.personService = personService;
     }
-    PersonPageComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.personService.getPeople()
-            .subscribe(function (people) { return _this.people = people; });
-    };
+    PersonPageComponent.prototype.ngOnInit = function () { };
     return PersonPageComponent;
 }());
 PersonPageComponent = __decorate([

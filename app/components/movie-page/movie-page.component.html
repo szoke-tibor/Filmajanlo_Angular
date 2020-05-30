@@ -3,7 +3,7 @@
             (keyup)="currentPage=1;getMovies()">
     <div *ngFor="let movie of movies">
         <dt>
-            <a [class.active]="movie === selectedMovie" (click)="selectedMovie = movie">
+            <a [class.active]="movie === selectedMovie" (click)="selectedMovie = movie;getCharacters()">
                 <h6 class="text-info">Title:{{movie.title}}
                 <p>Year:{{movie.year}}</p></h6>
             </a>
@@ -39,5 +39,9 @@
         </p>
         <p>Description:</p>
         <p>{{selectedMovie.overview}}</p>
+        <p>Actors:</p>
+        <p *ngFor="let actor of selectedMovie.actors">
+            {{actor.name}}
+        </p>
     </h6>
 </div>
