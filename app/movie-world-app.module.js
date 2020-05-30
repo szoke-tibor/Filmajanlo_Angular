@@ -22,10 +22,7 @@ var person_service_1 = require("./services/person.service");
 var http_2 = require("@angular/common/http");
 var routes = [
     { path: "movies", component: movie_page_component_1.MoviePageComponent },
-    { path: "movies/:id", component: movie_page_component_1.MoviePageComponent },
     { path: "shows", component: show_page_component_1.ShowPageComponent },
-    { path: "shows/:id", component: show_page_component_1.ShowPageComponent },
-    { path: "people", component: person_page_component_1.PersonPageComponent },
     { path: "actor/:id", component: person_page_component_1.PersonPageComponent }
 ];
 var MovieWorldAppModule = (function () {

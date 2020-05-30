@@ -15,10 +15,7 @@ import { HttpClient } from '@angular/common/http';
 
 let routes: Route[] = [
     { path: "movies", component: MoviePageComponent },
-    { path: "movies/:id", component: MoviePageComponent },
     { path: "shows", component: ShowPageComponent },
-    { path: "shows/:id", component: ShowPageComponent },
-    { path: "people", component: PersonPageComponent },
     { path: "actor/:id", component: PersonPageComponent }
 ];
 
