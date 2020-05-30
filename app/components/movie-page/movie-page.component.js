@@ -35,14 +35,12 @@ var MoviePageComponent = (function () {
             _this.lastPage = movies.length < 10 ? true : false;
         });
     };
-    MoviePageComponent.prototype.getCharacters = function () {
+    MoviePageComponent.prototype.getActors = function () {
         var _this = this;
         this.personService.getPeopleOfMovie(this.selectedMovie.ids.trakt)
             .subscribe(function (people) {
-            _this.people = people;
             _this.selectedMovie.actors = [];
-            _this.people.cast.forEach(function (cast) { return _this.selectedMovie.actors.push(cast.person); });
-            console.log(_this.selectedMovie.actors);
+            people.cast.forEach(function (cast) { return _this.selectedMovie.actors.push(cast.person); });
         });
     };
     return MoviePageComponent;

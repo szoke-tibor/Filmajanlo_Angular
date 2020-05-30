@@ -19,7 +19,6 @@ export class MoviePageComponent implements OnInit {
 
     movies: Movie[];
     selectedMovie: Movie;
-    people: People;
 
     pageSize: number;
     currentPage: number;
@@ -49,13 +48,11 @@ export class MoviePageComponent implements OnInit {
         });
     }
 
-    getCharacters() {
+    getActors() {
         this.personService.getPeopleOfMovie(this.selectedMovie.ids.trakt)
         .subscribe(people => {
-            this.people = people;
             this.selectedMovie.actors = [];
-            this.people.cast.forEach(cast => this.selectedMovie.actors.push(cast.person));
-            console.log(this.selectedMovie.actors);
+            people.cast.forEach(cast => this.selectedMovie.actors.push(cast.person));
         });
     }
 }
