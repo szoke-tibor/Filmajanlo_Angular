@@ -1,31 +1,41 @@
-<div class="col-lg-3 panel panel-info">
+<div class="col-lg-6 panel panel-info" margin="auto">
     <input class="form-control" placeholder="Search for movies..." [(ngModel)]="queryString"
             (keyup)="currentPage=1;getMovies()">
-    <div *ngFor="let movie of movies">
-        <dt>
-            <a [class.active]="movie === selectedMovie"
-            (click)="selectedMovie = movie;
-                     getActors();
-                     getRelatedMovies();
-                     toggleRelateMovies = false">
-                <h6 class="text-info">Title:{{movie.title}}
-                <p>Year:{{movie.year}}</p></h6>
-            </a>
-        </dt>
-    </div>
-    <div class="paging">
-        <button class="col-xs-4 btn btn-info" [disabled]="currentPage <= 1"
-            (click)="currentPage=currentPage-1;getMovies()">
-            <i class="glyphicon glyphicon-chevron-left"></i>
-        </button>
-        <div class="col-xs-4 page-numbers">
-            {{currentPage}}
-        </div>
-        <button class="col-xs-4 btn btn-info" [disabled]="lastPage"
-            (click)="currentPage=currentPage+1;getMovies()">
-            <i class="glyphicon glyphicon-chevron-right"></i>
-        </button>
-    </div>
+        <table class="table table-hover">
+            <tbody *ngFor="let movie of movies">
+                <tr>
+                    <a [class.active]="movie === selectedMovie"
+                                        (click)="selectedMovie = movie;
+                                        getActors();
+                                        getRelatedMovies();
+                                        toggleRelateMovies = false">
+                        <th>
+                            <button type="button" class="btn btn-primary">Select</button>
+                        </th>
+                    </a>
+                    <td>{{movie.title}}</td>
+                    <td>Year: {{movie.year}}</td>
+                    <td>Rating: {{movie.rating}}</td>
+                </tr>
+            </tbody>
+            <tbody>
+                
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <button type="button" class="btn btn-primary" [disabled]="currentPage <= 1"
+                                    (click)="currentPage=currentPage-1;getMovies()">
+                        &laquo;
+                    </button>
+                    {{currentPage}}
+                    <button type="button" class="btn btn-primary" [disabled]="lastPage"
+                                    (click)="currentPage=currentPage+1;getMovies()">
+                        &raquo;
+                    </button>
+                </td>
+            </tbody>
+        </table>
 </div>
 
 <div class="col-lg-3 panel panel-info" *ngIf="selectedMovie">

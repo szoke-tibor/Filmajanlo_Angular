@@ -37,6 +37,7 @@ var MoviePageComponent = (function () {
             if (!movies)
                 throw "Hiba történt az adatlekérdezés során.";
             _this.movies = movies;
+            _this.ratingRounding();
             _this.lastPage = movies.length < 10 ? true : false;
         });
     };
@@ -61,6 +62,14 @@ var MoviePageComponent = (function () {
                 throw "Hiba történt az adatlekérdezés során.";
             _this.relatedMovies = movies;
         });
+    };
+    MoviePageComponent.prototype.numberRounder = function (number, punctuality) {
+        var power = Math.pow(10, punctuality);
+        return Math.ceil(number * power) / power;
+    };
+    MoviePageComponent.prototype.ratingRounding = function () {
+        var _this = this;
+        this.movies.forEach(function (movie) { return movie.rating = _this.numberRounder(movie.rating, 2); });
     };
     return MoviePageComponent;
 }());
