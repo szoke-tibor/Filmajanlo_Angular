@@ -3,7 +3,11 @@
             (keyup)="currentPage=1;getMovies()">
     <div *ngFor="let movie of movies">
         <dt>
-            <a [class.active]="movie === selectedMovie" (click)="selectedMovie = movie;getActors()">
+            <a [class.active]="movie === selectedMovie"
+            (click)="selectedMovie = movie;
+                     getActors();
+                     getRelatedMovies();
+                     toggleRelateMovies = false">
                 <h6 class="text-info">Title:{{movie.title}}
                 <p>Year:{{movie.year}}</p></h6>
             </a>
@@ -46,4 +50,18 @@
             </a>
         </p>
     </h6>
+</div>
+
+<div class="col-lg-3">
+    <div>
+        <button class="col-xs-6 btn btn-info" (click)="toggleRelateMovies = true" *ngIf="selectedMovie">
+            List related movies
+        </button>
+        asd
+    </div>
+    <div *ngIf="toggleRelateMovies">
+        <p *ngFor="let movie of relatedMovies">
+            {{movie.title}}
+        </p>
+    </div>
 </div>

@@ -26,6 +26,9 @@ var MovieService = (function () {
         var query = (options && options.query) || "";
         return this.http.get("https://api.trakt.tv/movies/popular?extended=full&page=" + page + "&limit=" + pageSize + "&query=" + query, { headers: this.headers });
     };
+    MovieService.prototype.getRelatedMovies = function (movieId) {
+        return this.http.get("https://api.trakt.tv/movies/" + movieId + "/related", { headers: this.headers });
+    };
     return MovieService;
 }());
 MovieService = __decorate([

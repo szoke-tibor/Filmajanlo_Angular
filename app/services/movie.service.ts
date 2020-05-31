@@ -21,4 +21,8 @@ export class MovieService {
         let query = (options && options.query) || "";
         return this.http.get<Movie[]>(`https://api.trakt.tv/movies/popular?extended=full&page=${page}&limit=${pageSize}&query=${query}`, {headers: this.headers});
     }
+    
+    getRelatedMovies(movieId: number) : Observable<Movie[]> {
+        return this.http.get<Movie[]>(`https://api.trakt.tv/movies/${movieId}/related`, {headers: this.headers});
+    }
 }

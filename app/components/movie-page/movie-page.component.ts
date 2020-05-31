@@ -21,6 +21,8 @@ export class MoviePageComponent implements OnInit {
     movies: Movie[];
     selectedMovie: Movie;
     selectedActor: Person;
+    relatedMovies: Movie[];
+    toggleRelateMovies: boolean;
 
     pageSize: number;
     currentPage: number;
@@ -33,6 +35,7 @@ export class MoviePageComponent implements OnInit {
         this.pageSize = 10;
         this.currentPage = 1;
         this.queryString = "";
+        this.toggleRelateMovies = false;
     }
     
     ngOnInit(): void {
@@ -61,5 +64,13 @@ export class MoviePageComponent implements OnInit {
 
     goActorPage() : void {
         this.router.navigate([`/actors/${this.selectedActor.ids.trakt}`]);
+    }
+
+    
+    getRelatedMovies() {
+        this.movieService.getRelatedMovies(this.selectedMovie.ids.trakt)
+        .subscribe(movies => {
+            this.relatedMovies = movies;
+        });
     }
 }

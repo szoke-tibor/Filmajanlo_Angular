@@ -21,6 +21,7 @@ var MoviePageComponent = (function () {
         this.pageSize = 10;
         this.currentPage = 1;
         this.queryString = "";
+        this.toggleRelateMovies = false;
     }
     MoviePageComponent.prototype.ngOnInit = function () {
         this.getMovies();
@@ -47,6 +48,13 @@ var MoviePageComponent = (function () {
     };
     MoviePageComponent.prototype.goActorPage = function () {
         this.router.navigate(["/actors/" + this.selectedActor.ids.trakt]);
+    };
+    MoviePageComponent.prototype.getRelatedMovies = function () {
+        var _this = this;
+        this.movieService.getRelatedMovies(this.selectedMovie.ids.trakt)
+            .subscribe(function (movies) {
+            _this.relatedMovies = movies;
+        });
     };
     return MoviePageComponent;
 }());
