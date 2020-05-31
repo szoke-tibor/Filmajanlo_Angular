@@ -11,11 +11,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var person_service_1 = require("../../services/person.service");
+var router_1 = require("@angular/router");
 var PersonPageComponent = (function () {
-    function PersonPageComponent(personService) {
+    function PersonPageComponent(personService, route) {
         this.personService = personService;
+        this.route = route;
     }
-    PersonPageComponent.prototype.ngOnInit = function () { };
+    PersonPageComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.route.params.subscribe(function (params) {
+            _this.selectedActorId = params["id"];
+            _this.getActor();
+        });
+    };
+    PersonPageComponent.prototype.getActor = function () {
+        var _this = this;
+        this.personService.getActor(this.selectedActorId)
+            .subscribe(function (actor) {
+            _this.selectedActor = actor;
+        });
+    };
     return PersonPageComponent;
 }());
 PersonPageComponent = __decorate([
@@ -23,7 +38,8 @@ PersonPageComponent = __decorate([
         selector: "person-page",
         templateUrl: "./person-page.component.html"
     }),
-    __metadata("design:paramtypes", [person_service_1.PersonService])
+    __metadata("design:paramtypes", [person_service_1.PersonService,
+        router_1.ActivatedRoute])
 ], PersonPageComponent);
 exports.PersonPageComponent = PersonPageComponent;
 //# sourceMappingURL=person-page.component.js.map

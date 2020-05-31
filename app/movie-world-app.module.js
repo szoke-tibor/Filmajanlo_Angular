@@ -23,7 +23,7 @@ var http_2 = require("@angular/common/http");
 var routes = [
     { path: "movies", component: movie_page_component_1.MoviePageComponent },
     { path: "shows", component: show_page_component_1.ShowPageComponent },
-    { path: "actor/:id", component: person_page_component_1.PersonPageComponent }
+    { path: "actors/:id", component: person_page_component_1.PersonPageComponent }
 ];
 var MovieWorldAppModule = (function () {
     function MovieWorldAppModule() {

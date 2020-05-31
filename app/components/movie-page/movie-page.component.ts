@@ -10,6 +10,7 @@ import { PersonService } from "../../services/person.service";
 import * as _ from "lodash";
 import { Cast } from "../../models/cast.type";
 import { People } from "../../models/people.type";
+import { Router } from "@angular/router";
 
 @Component({
     selector: "movie-page",
@@ -19,6 +20,7 @@ export class MoviePageComponent implements OnInit {
 
     movies: Movie[];
     selectedMovie: Movie;
+    selectedActor: Person;
 
     pageSize: number;
     currentPage: number;
@@ -26,7 +28,8 @@ export class MoviePageComponent implements OnInit {
     queryString: string;
 
     constructor(private movieService : MovieService,
-                private personService: PersonService) {
+                private personService: PersonService,
+                private router: Router) {
         this.pageSize = 10;
         this.currentPage = 1;
         this.queryString = "";
@@ -54,5 +57,9 @@ export class MoviePageComponent implements OnInit {
             this.selectedMovie.actors = [];
             people.cast.forEach(cast => this.selectedMovie.actors.push(cast.person));
         });
+    }
+
+    goActorPage() : void {
+        this.router.navigate([`/actors/${this.selectedActor.ids.trakt}`]);
     }
 }

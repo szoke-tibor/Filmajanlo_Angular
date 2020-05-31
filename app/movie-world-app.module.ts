@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http';
 let routes: Route[] = [
     { path: "movies", component: MoviePageComponent },
     { path: "shows", component: ShowPageComponent },
-    { path: "actor/:id", component: PersonPageComponent }
+    { path: "actors/:id", component: PersonPageComponent }
 ];
 
 @NgModule({

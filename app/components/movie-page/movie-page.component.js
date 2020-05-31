@@ -12,10 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var movie_service_1 = require("../../services/movie.service");
 var person_service_1 = require("../../services/person.service");
+var router_1 = require("@angular/router");
 var MoviePageComponent = (function () {
-    function MoviePageComponent(movieService, personService) {
+    function MoviePageComponent(movieService, personService, router) {
         this.movieService = movieService;
         this.personService = personService;
+        this.router = router;
         this.pageSize = 10;
         this.currentPage = 1;
         this.queryString = "";
@@ -43,6 +45,9 @@ var MoviePageComponent = (function () {
             people.cast.forEach(function (cast) { return _this.selectedMovie.actors.push(cast.person); });
         });
     };
+    MoviePageComponent.prototype.goActorPage = function () {
+        this.router.navigate(["/actors/" + this.selectedActor.ids.trakt]);
+    };
     return MoviePageComponent;
 }());
 MoviePageComponent = __decorate([
@@ -51,7 +56,8 @@ MoviePageComponent = __decorate([
         templateUrl: "./movie-page.component.html"
     }),
     __metadata("design:paramtypes", [movie_service_1.MovieService,
-        person_service_1.PersonService])
+        person_service_1.PersonService,
+        router_1.Router])
 ], MoviePageComponent);
 exports.MoviePageComponent = MoviePageComponent;
 //# sourceMappingURL=movie-page.component.js.map

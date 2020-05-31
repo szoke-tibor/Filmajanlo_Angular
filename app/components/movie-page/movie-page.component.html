@@ -41,7 +41,9 @@
         <p>{{selectedMovie.overview}}</p>
         <p>Actors:</p>
         <p *ngFor="let actor of selectedMovie.actors">
-            {{actor.name}}
+            <a (click)="selectedActor = actor;goActorPage()">
+                {{actor.name}}
+            </a>
         </p>
     </h6>
 </div>
