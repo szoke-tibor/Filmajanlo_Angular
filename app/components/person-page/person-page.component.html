@@ -1,6 +1,9 @@
 <p><strong>Name: {{selectedActor.name}}</strong></p>
 <p>Biography: {{selectedActor.biography}}</p>
-<p>Birthday: {{selectedActor.birthday}}</p>
-<p>Death: {{selectedActor.death}}</p>
-<p>Birthplace: {{selectedActor.birthplace}}</p>
-<p>Homepage: <a href="{{selectedActor.homepage}}">{{selectedActor.homepage}}</a></p>
+<p>Born in {{selectedActor.birthplace}}, {{selectedActor.birthday}}</p>
+<p *ngIf="selectedActor.death">Death: {{selectedActor.death}}</p>
+<p *ngIf="selectedActor.homepage">Homepage: <a href="{{selectedActor.homepage}}">{{selectedActor.homepage}}</a></p>
+<p>Played in movies:</p>
+<p *ngFor="let movie of moviesOfActor">
+    {{movie.title}}
+</p>

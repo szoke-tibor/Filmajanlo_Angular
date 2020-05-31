@@ -17,6 +17,7 @@ import { ActivatedRoute } from "@angular/router";
 export class PersonPageComponent implements OnInit {
     selectedActorId: number;
     selectedActor: Person;
+    moviesOfActor: Movie[];
 
     constructor(private personService : PersonService,
                 private route: ActivatedRoute) { }
@@ -26,6 +27,7 @@ export class PersonPageComponent implements OnInit {
             this.selectedActor = new Person();
             this.selectedActorId = params["id"];
             this.getActor();
+            this.getMoviesOfActor();
         });
     }
 
@@ -33,6 +35,14 @@ export class PersonPageComponent implements OnInit {
         this.personService.getActor(this.selectedActorId)
         .subscribe(actor => {
             this.selectedActor = actor;
+        });
+    }
+
+    getMoviesOfActor() : void {
+        this.personService.getMoviesOfActor(this.selectedActorId)
+        .subscribe(people => {
+            this.moviesOfActor = [];
+            people.cast.forEach(cast => this.moviesOfActor.push(cast.movie));
         });
     }
 }

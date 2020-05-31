@@ -26,6 +26,9 @@ var PersonService = (function () {
     PersonService.prototype.getActor = function (selectedActorId) {
         return this.http.get("https://api.trakt.tv/people/" + selectedActorId + "?extended=full", { headers: this.headers });
     };
+    PersonService.prototype.getMoviesOfActor = function (selectedActorId) {
+        return this.http.get("https://api.trakt.tv/people/" + selectedActorId + "/movies?extended=full", { headers: this.headers });
+    };
     return PersonService;
 }());
 PersonService = __decorate([

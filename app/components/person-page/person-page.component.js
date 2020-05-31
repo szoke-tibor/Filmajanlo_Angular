@@ -24,6 +24,7 @@ var PersonPageComponent = (function () {
             _this.selectedActor = new person_type_1.Person();
             _this.selectedActorId = params["id"];
             _this.getActor();
+            _this.getMoviesOfActor();
         });
     };
     PersonPageComponent.prototype.getActor = function () {
@@ -31,6 +32,14 @@ var PersonPageComponent = (function () {
         this.personService.getActor(this.selectedActorId)
             .subscribe(function (actor) {
             _this.selectedActor = actor;
+        });
+    };
+    PersonPageComponent.prototype.getMoviesOfActor = function () {
+        var _this = this;
+        this.personService.getMoviesOfActor(this.selectedActorId)
+            .subscribe(function (people) {
+            _this.moviesOfActor = [];
+            people.cast.forEach(function (cast) { return _this.moviesOfActor.push(cast.movie); });
         });
     };
     return PersonPageComponent;

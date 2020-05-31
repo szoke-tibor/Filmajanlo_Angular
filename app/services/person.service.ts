@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from "rxjs/Rx";
 import { Person } from '../models/person.type';
 import { People } from '../models/people.type';
+import { Movie } from '../models/movie.type';
+import { Cast } from '../models/cast.type';
 
 @Injectable()
 export class PersonService {
@@ -22,5 +24,9 @@ export class PersonService {
 
     getActor(selectedActorId: number) : Observable<Person> {
         return this.http.get<Person>(`https://api.trakt.tv/people/${selectedActorId}?extended=full`, {headers: this.headers});
+    }
+
+    getMoviesOfActor(selectedActorId: number) : Observable<People> {
+        return this.http.get<People>(`https://api.trakt.tv/people/${selectedActorId}/movies?extended=full`, {headers: this.headers});
     }
 }
