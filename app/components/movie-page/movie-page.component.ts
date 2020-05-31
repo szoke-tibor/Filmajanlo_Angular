@@ -45,7 +45,7 @@ export class MoviePageComponent implements OnInit {
             if (!movies)
                 throw "Hiba történt az adatlekérdezés során.";
             this.movies = movies;
-            this.ratingRounding();
+            this.ratingRounding(this.movies);
             this.lastPage = movies.length < 10 ? true : false;
         });
     }
@@ -71,6 +71,7 @@ export class MoviePageComponent implements OnInit {
             if (!movies)
                 throw "Hiba történt az adatlekérdezés során.";
             this.relatedMovies = movies;
+            this.ratingRounding(this.relatedMovies);
         });
     }
 
@@ -79,7 +80,7 @@ export class MoviePageComponent implements OnInit {
         return Math.ceil(number * power) / power;
     }
 
-    ratingRounding() {
-        this.movies.forEach(movie => movie.rating = this.numberRounder(movie.rating, 2));
+    ratingRounding(movies: Movie[]) {
+        movies.forEach(movie => movie.rating = this.numberRounder(movie.rating, 2));
     }
 }

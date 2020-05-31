@@ -23,6 +23,6 @@ export class MovieService {
     }
     
     getRelatedMovies(movieId: number) : Observable<Movie[]> {
-        return this.http.get<Movie[]>(`https://api.trakt.tv/movies/${movieId}/related`, {headers: this.headers});
+        return this.http.get<Movie[]>(`https://api.trakt.tv/movies/${movieId}/related?extended=full`, {headers: this.headers});
     }
 }

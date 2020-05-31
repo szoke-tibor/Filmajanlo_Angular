@@ -1,5 +1,7 @@
-<div class="col-lg-6 panel panel-info" margin="auto">
-    <input class="form-control" placeholder="Search for movies..." [(ngModel)]="queryString"
+<div class="container col-lg-10">
+    <div class="row">
+        <div class="col">
+            <input class="form-control" placeholder="Search for movies..." [(ngModel)]="queryString"
             (keyup)="currentPage=1;getMovies()">
         <table class="table table-hover">
             <tbody *ngFor="let movie of movies">
@@ -19,8 +21,11 @@
                 </tr>
             </tbody>
             <tbody>
-                
-                <td></td>
+                <td>
+                    <button type="button" class="btn btn-secondary" (click)="toggleRelateMovies = true" *ngIf="selectedMovie">
+                        List related movies
+                    </button>
+                </td>
                 <td></td>
                 <td></td>
                 <td>
@@ -36,41 +41,46 @@
                 </td>
             </tbody>
         </table>
-</div>
-
-<div class="col-lg-3 panel panel-info" *ngIf="selectedMovie">
-    <h6 class="text-info">
-        <p>Title:{{selectedMovie.title}}</p>
-        <p>Year:{{selectedMovie.year}}</p>
-        <p>Rating:{{selectedMovie.rating}}</p>
-        <p>Trailer: <a href="{{selectedMovie.trailer}}">Link</a></p>
-        <p>Language:{{selectedMovie.language}}</p>
-        <p>
-            Genres:
-            <em *ngFor="let genre of selectedMovie.genres">
-                {{genre}}
-            </em>
-        </p>
-        <p>Description:</p>
-        <p>{{selectedMovie.overview}}</p>
-        <p>Actors:</p>
-        <p *ngFor="let actor of selectedMovie.actors">
-            <a (click)="selectedActor = actor;goActorPage()">
-                {{actor.name}}
-            </a>
-        </p>
-    </h6>
-</div>
-
-<div class="col-lg-3">
-    <div>
-        <button class="col-xs-6 btn btn-info" (click)="toggleRelateMovies = true" *ngIf="selectedMovie">
-            List related movies
-        </button>
+        </div>
+        <div class="col">
+            <h4 class="text-info" *ngIf="selectedMovie">
+                <p>Title: {{selectedMovie.title}}</p>
+                <p>Year: {{selectedMovie.year}}</p>
+                <p>Rating: {{selectedMovie.rating}}</p>
+                <p>Trailer: <a href="{{selectedMovie.trailer}}">Link</a></p>
+                <p>Language: {{selectedMovie.language}}</p>
+                <p>
+                    Genres:
+                    <em *ngFor="let genre of selectedMovie.genres">
+                        {{genre}}
+                    </em>
+                </p>
+                <p>Description:</p>
+                <p>{{selectedMovie.overview}}</p>
+            </h4>
+            <h5 *ngIf="selectedMovie">
+                <div class="col">
+                    <p>Actors:</p>
+                    <p>
+                            <a (click)="selectedActor = actor;goActorPage()" *ngFor="let actor of selectedMovie.actors">
+                                - {{actor.name}}
+                            </a>
+                    </p>
+                </div>
+            </h5>
+        </div>
     </div>
-    <div *ngIf="toggleRelateMovies">
-        <p *ngFor="let movie of relatedMovies">
-            {{movie.title}}
-        </p>
+    <div class="row">
+        <div class="col">
+            <table class="table table-hover" *ngIf="toggleRelateMovies">
+                <tbody *ngFor="let movie of relatedMovies">
+                    <tr class="table-secondary">
+                        <td>{{movie.title}}</td>
+                        <td>Year: {{movie.year}}</td>
+                        <td>Rating: {{movie.rating}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
