@@ -1,4 +1,4 @@
-export interface Person {
+export class Person {
     name: string;
     ids: {
         trakt: number;

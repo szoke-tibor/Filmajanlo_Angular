@@ -23,12 +23,13 @@ export class PersonPageComponent implements OnInit {
     
     ngOnInit(): void {
         this.route.params.subscribe(params => {
+            this.selectedActor = new Person();
             this.selectedActorId = params["id"];
             this.getActor();
         });
     }
 
-    getActor() {
+    getActor() : void {
         this.personService.getActor(this.selectedActorId)
         .subscribe(actor => {
             this.selectedActor = actor;

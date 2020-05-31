@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var person_type_1 = require("../../models/person.type");
 var person_service_1 = require("../../services/person.service");
 var router_1 = require("@angular/router");
 var PersonPageComponent = (function () {
@@ -20,6 +21,7 @@ var PersonPageComponent = (function () {
     PersonPageComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
+            _this.selectedActor = new person_type_1.Person();
             _this.selectedActorId = params["id"];
             _this.getActor();
         });
