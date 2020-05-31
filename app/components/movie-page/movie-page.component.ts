@@ -30,11 +30,23 @@ export class MoviePageComponent implements OnInit {
         this.queryString = "";
         this.toggleRelateMovies = false;
     }
-    
+
+    /* 
+    *   Ez a függvény minden egyes MoviePageComponent példányosodása esetén meghívódik azonnal.
+    *   Meghívja a getMovies() fv-t.
+    */
     ngOnInit(): void {
         this.getMovies();
     }
 
+    /*
+    *   A konstruktorban beállított paraméterek segítségével
+    *   feltölti a movies tagváltozót aszinkron módon, majd a 
+    *   betöltött filmek értékelését két tizedesjegy pontossággal kerekíti.
+    *   Továbbá megvizsgálja, hogy kevesebb, mint 10 film érkezett-e.
+    *   Ennek függvényében a lapozó gombot letiltó boolean értékét beállítja.
+    *   
+    */
     getMovies() {
         this.movieService.getMovies({
             pageSize: this.pageSize,
@@ -50,6 +62,12 @@ export class MoviePageComponent implements OnInit {
         });
     }
 
+    /*
+    *   Szintén aszinkron módon, a subscribe segítségével
+    *   feltölti a personService segítségével a kiválasztott
+    *   filmhez tartozó színészek tömbjét
+    *   Ha nem érkezett adat hibát dob.
+    */
     getActors() {
         this.personService.getPeopleOfMovie(this.selectedMovie.ids.trakt)
         .subscribe(people => {
@@ -60,11 +78,18 @@ export class MoviePageComponent implements OnInit {
         });
     }
 
+    /*
+    *   A böngészőben az actors/:id oldalra navigálja a felhasználót.
+    */
     goActorPage() : void {
         this.router.navigate([`/actors/${this.selectedActor.ids.trakt}`]);
     }
 
-    
+    /*
+    *   Aszinkron módon értéket ad a kapcsolódó filmek tömbjének
+    *   majd kerekíti a filmek értékelését két tizedesjegy pontossággal
+    *   Ha nem érkezett adat hibát dob.
+    */
     getRelatedMovies() {
         this.movieService.getRelatedMovies(this.selectedMovie.ids.trakt)
         .subscribe(movies => {
@@ -75,11 +100,19 @@ export class MoviePageComponent implements OnInit {
         });
     }
 
+    /*
+    *   Kerekítéshez használatos segédfüggvény, mely egy paraméterül
+    *   kapott számot, a szintén paraméterül kapott pontossággal kerekíti.
+    */
     numberRounder(number: number, punctuality: number) : number {
         var power = Math.pow(10, punctuality);
         return Math.ceil(number * power) / power;
     }
 
+    /*
+    *   Ennek a függvénynek a segítségével a paraméterül adott
+    *   filmeket tartalmazó tömb elemeinek értékelését két tizedesjegyre kerekíthetjük.
+    */
     ratingRounding(movies: Movie[]) {
         movies.forEach(movie => movie.rating = this.numberRounder(movie.rating, 2));
     }

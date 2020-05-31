@@ -23,9 +23,21 @@ var MoviePageComponent = (function () {
         this.queryString = "";
         this.toggleRelateMovies = false;
     }
+    /*
+    *   Ez a függvény minden egyes MoviePageComponent példányosodása esetén meghívódik azonnal.
+    *   Meghívja a getMovies() fv-t.
+    */
     MoviePageComponent.prototype.ngOnInit = function () {
         this.getMovies();
     };
+    /*
+    *   A konstruktorban beállított paraméterek segítségével
+    *   feltölti a movies tagváltozót aszinkron módon, majd a
+    *   betöltött filmek értékelését két tizedesjegy pontossággal kerekíti.
+    *   Továbbá megvizsgálja, hogy kevesebb, mint 10 film érkezett-e.
+    *   Ennek függvényében a lapozó gombot letiltó boolean értékét beállítja.
+    *
+    */
     MoviePageComponent.prototype.getMovies = function () {
         var _this = this;
         this.movieService.getMovies({
@@ -41,6 +53,12 @@ var MoviePageComponent = (function () {
             _this.lastPage = movies.length < 10 ? true : false;
         });
     };
+    /*
+    *   Szintén aszinkron módon, a subscribe segítségével
+    *   feltölti a personService segítségével a kiválasztott
+    *   filmhez tartozó színészek tömbjét
+    *   Ha nem érkezett adat hibát dob.
+    */
     MoviePageComponent.prototype.getActors = function () {
         var _this = this;
         this.personService.getPeopleOfMovie(this.selectedMovie.ids.trakt)
@@ -51,9 +69,17 @@ var MoviePageComponent = (function () {
             people.cast.forEach(function (cast) { return _this.selectedMovie.actors.push(cast.person); });
         });
     };
+    /*
+    *   A böngészőben az actors/:id oldalra navigálja a felhasználót.
+    */
     MoviePageComponent.prototype.goActorPage = function () {
         this.router.navigate(["/actors/" + this.selectedActor.ids.trakt]);
     };
+    /*
+    *   Aszinkron módon értéket ad a kapcsolódó filmek tömbjének
+    *   majd kerekíti a filmek értékelését két tizedesjegy pontossággal
+    *   Ha nem érkezett adat hibát dob.
+    */
     MoviePageComponent.prototype.getRelatedMovies = function () {
         var _this = this;
         this.movieService.getRelatedMovies(this.selectedMovie.ids.trakt)
@@ -64,10 +90,18 @@ var MoviePageComponent = (function () {
             _this.ratingRounding(_this.relatedMovies);
         });
     };
+    /*
+    *   Kerekítéshez használatos segédfüggvény, mely egy paraméterül
+    *   kapott számot, a szintén paraméterül kapott pontossággal kerekíti.
+    */
     MoviePageComponent.prototype.numberRounder = function (number, punctuality) {
         var power = Math.pow(10, punctuality);
         return Math.ceil(number * power) / power;
     };
+    /*
+    *   Ennek a függvénynek a segítségével a paraméterül adott
+    *   filmeket tartalmazó tömb elemeinek értékelését két tizedesjegyre kerekíthetjük.
+    */
     MoviePageComponent.prototype.ratingRounding = function (movies) {
         var _this = this;
         movies.forEach(function (movie) { return movie.rating = _this.numberRounder(movie.rating, 2); });
