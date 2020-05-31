@@ -9,6 +9,8 @@ import { Person } from "../../models/person.type";
 import { PersonService } from "../../services/person.service";
 import * as _ from "lodash";
 import { Router } from "@angular/router";
+import { Season } from "../../models/season.type";
+import { timestamp } from "rxjs/operator/timestamp";
 
 @Component({
     selector: "show-page",
@@ -19,6 +21,7 @@ export class ShowPageComponent implements OnInit {
     shows: Show[];
     selectedShow: Show;
     selectedActor: Person;
+    seasons: Season[];
 
     pageSize: number;
     currentPage: number;
@@ -59,5 +62,13 @@ export class ShowPageComponent implements OnInit {
 
     goActorPage() : void {
         this.router.navigate([`/actors/${this.selectedActor.ids.trakt}`]);
+    }
+
+    getEpisodesForShow() : void {
+        this.showService.getEpisodesForShow(this.selectedShow.ids.trakt)
+        .subscribe(seasons => {
+            this.seasons = seasons;
+            console.log(seasons);
+        });
     }
 }

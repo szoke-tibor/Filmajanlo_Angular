@@ -26,6 +26,9 @@ var ShowService = (function () {
         var query = (options && options.query) || "";
         return this.http.get("https://api.trakt.tv/shows/popular?extended=full&page=" + page + "&limit=" + pageSize + "&query=" + query, { headers: this.headers });
     };
+    ShowService.prototype.getEpisodesForShow = function (showId) {
+        return this.http.get("https://api.trakt.tv/shows/" + showId + "/seasons?extended=episodes", { headers: this.headers });
+    };
     return ShowService;
 }());
 ShowService = __decorate([

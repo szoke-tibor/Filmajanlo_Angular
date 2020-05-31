@@ -48,6 +48,14 @@ var ShowPageComponent = (function () {
     ShowPageComponent.prototype.goActorPage = function () {
         this.router.navigate(["/actors/" + this.selectedActor.ids.trakt]);
     };
+    ShowPageComponent.prototype.getEpisodesForShow = function () {
+        var _this = this;
+        this.showService.getEpisodesForShow(this.selectedShow.ids.trakt)
+            .subscribe(function (seasons) {
+            _this.seasons = seasons;
+            console.log(seasons);
+        });
+    };
     return ShowPageComponent;
 }());
 ShowPageComponent = __decorate([

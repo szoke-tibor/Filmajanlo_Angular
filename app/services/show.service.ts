@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from "rxjs/Rx";
 import { Show } from '../models/show.type';
+import { Season } from '../models/season.type';
 
 @Injectable()
 export class ShowService {
@@ -20,5 +21,9 @@ export class ShowService {
         let pageSize = (options && options.pageSize) || 10;
         let query = (options && options.query) || "";
         return this.http.get<Show[]>(`https://api.trakt.tv/shows/popular?extended=full&page=${page}&limit=${pageSize}&query=${query}`, {headers: this.headers});
+    }
+
+    getEpisodesForShow(showId: number) : Observable<Season[]> {
+        return this.http.get<Season[]>(`https://api.trakt.tv/shows/${showId}/seasons?extended=episodes`, {headers: this.headers});
     }
 }

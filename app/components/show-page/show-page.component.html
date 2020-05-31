@@ -3,7 +3,7 @@
             (keyup)="currentPage=1;getShows()">
     <div *ngFor="let show of shows">
         <dt>
-            <a [class.active]="show === selectedShow" (click)="selectedShow = show;getActors()">
+            <a [class.active]="show === selectedShow" (click)="selectedShow = show;getActors();getEpisodesForShow()">
                 <h6 class="text-info">Title:{{show.title}}
                 <p>Year:{{show.year}}</p></h6>
             </a>
@@ -45,6 +45,15 @@
             <a (click)="selectedActor = actor;goActorPage()">
                 {{actor.name}}
             </a>
+        </p>
+    </h6>
+</div>
+
+<div class="col-lg-3 panel panel-info" *ngIf="selectedShow">
+    <h6 *ngFor="let season of seasons">
+        <strong>Season {{season.number}}:</strong>
+        <p *ngFor="let episode of season.episodes">
+            {{episode.title}}
         </p>
     </h6>
 </div>
