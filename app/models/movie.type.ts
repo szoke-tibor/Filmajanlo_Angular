@@ -1,5 +1,3 @@
-import { People } from "./people.type";
-import { Cast } from "./cast.type";
 import { Person } from "./person.type";
 
 export interface Movie {

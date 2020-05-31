@@ -3,8 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from "rxjs/Rx";
 import { Person } from '../models/person.type';
 import { People } from '../models/people.type';
-import { Movie } from '../models/movie.type';
-import { Cast } from '../models/cast.type';
 
 @Injectable()
 export class PersonService {
