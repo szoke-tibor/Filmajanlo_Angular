@@ -18,6 +18,7 @@ export class PersonPageComponent implements OnInit {
     selectedActorId: number;
     selectedActor: Person;
     moviesOfActor: Movie[];
+    showsOfActor: Show[];
 
     constructor(private personService : PersonService,
                 private route: ActivatedRoute) { }
@@ -28,6 +29,7 @@ export class PersonPageComponent implements OnInit {
             this.selectedActorId = params["id"];
             this.getActor();
             this.getMoviesOfActor();
+            this.getShowsOfActor();
         });
     }
 
@@ -43,6 +45,14 @@ export class PersonPageComponent implements OnInit {
         .subscribe(people => {
             this.moviesOfActor = [];
             people.cast.forEach(cast => this.moviesOfActor.push(cast.movie));
+        });
+    }
+
+    getShowsOfActor() : void {
+        this.personService.getShowsOfActor(this.selectedActorId)
+        .subscribe(people => {
+            this.showsOfActor = [];
+            people.cast.forEach(cast => this.showsOfActor.push(cast.show));
         });
     }
 }

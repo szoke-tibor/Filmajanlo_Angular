@@ -27,7 +27,10 @@ var PersonService = (function () {
         return this.http.get("https://api.trakt.tv/people/" + selectedActorId + "?extended=full", { headers: this.headers });
     };
     PersonService.prototype.getMoviesOfActor = function (selectedActorId) {
-        return this.http.get("https://api.trakt.tv/people/" + selectedActorId + "/movies?extended=full", { headers: this.headers });
+        return this.http.get("https://api.trakt.tv/people/" + selectedActorId + "/movies", { headers: this.headers });
+    };
+    PersonService.prototype.getShowsOfActor = function (selectedActorId) {
+        return this.http.get("https://api.trakt.tv/people/" + selectedActorId + "/shows", { headers: this.headers });
     };
     return PersonService;
 }());

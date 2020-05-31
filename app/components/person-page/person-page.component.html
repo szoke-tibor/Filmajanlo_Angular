@@ -3,7 +3,17 @@
 <p>Born in {{selectedActor.birthplace}}, {{selectedActor.birthday}}</p>
 <p *ngIf="selectedActor.death">Death: {{selectedActor.death}}</p>
 <p *ngIf="selectedActor.homepage">Homepage: <a href="{{selectedActor.homepage}}">{{selectedActor.homepage}}</a></p>
-<p>Played in movies:</p>
-<p *ngFor="let movie of moviesOfActor">
-    {{movie.title}}
-</p>
+
+<div class="col-lg-3 panel panel-info">
+    <p><strong>Played in movies:</strong></p>
+    <p *ngFor="let movie of moviesOfActor">
+        {{movie.title}}
+    </p>
+</div>
+
+<div class="col-lg-3 panel panel-info">
+    <p><strong>Played in shows:</strong></p>
+    <p *ngFor="let show of showsOfActor">
+        {{show.title}}
+    </p>
+</div>

@@ -27,6 +27,10 @@ export class PersonService {
     }
 
     getMoviesOfActor(selectedActorId: number) : Observable<People> {
-        return this.http.get<People>(`https://api.trakt.tv/people/${selectedActorId}/movies?extended=full`, {headers: this.headers});
+        return this.http.get<People>(`https://api.trakt.tv/people/${selectedActorId}/movies`, {headers: this.headers});
+    }
+
+    getShowsOfActor(selectedActorId: number) : Observable<People> {
+        return this.http.get<People>(`https://api.trakt.tv/people/${selectedActorId}/shows`, {headers: this.headers});
     }
 }

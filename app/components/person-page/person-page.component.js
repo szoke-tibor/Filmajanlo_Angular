@@ -25,6 +25,7 @@ var PersonPageComponent = (function () {
             _this.selectedActorId = params["id"];
             _this.getActor();
             _this.getMoviesOfActor();
+            _this.getShowsOfActor();
         });
     };
     PersonPageComponent.prototype.getActor = function () {
@@ -40,6 +41,14 @@ var PersonPageComponent = (function () {
             .subscribe(function (people) {
             _this.moviesOfActor = [];
             people.cast.forEach(function (cast) { return _this.moviesOfActor.push(cast.movie); });
+        });
+    };
+    PersonPageComponent.prototype.getShowsOfActor = function () {
+        var _this = this;
+        this.personService.getShowsOfActor(this.selectedActorId)
+            .subscribe(function (people) {
+            _this.showsOfActor = [];
+            people.cast.forEach(function (cast) { return _this.showsOfActor.push(cast.show); });
         });
     };
     return PersonPageComponent;
