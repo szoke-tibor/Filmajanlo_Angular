@@ -18,6 +18,13 @@ export class PersonPageComponent implements OnInit {
     constructor(private personService : PersonService,
                 private route: ActivatedRoute) { }
     
+    /* 
+    *   Ez a függvény minden egyes PersonPageComponent példányosodása esetén meghívódik azonnal.
+    *   Példányosítja a kiválasztott színész mezőt, hogy későbbi lekérdezések ne null objecten hívódjanak.
+    *   A routingból kinyert paramétert eltárolja a selectedActorId változóban.
+    *   Ezek után már be tudja állítani a kiválasztott színész objektumot.
+    *   Majd annak filmjeit és sorozatait is beállítja.
+    */
     ngOnInit(): void {
         this.route.params.subscribe(params => {
             this.selectedActor = new Person();
@@ -28,6 +35,11 @@ export class PersonPageComponent implements OnInit {
         });
     }
 
+    /*
+    *   Aszinkron módon beállítja a selectedActor-t a
+    *   personService segítségével
+    *   Ha nem érkezett adat hibát dob.
+    */
     getActor() : void {
         this.personService.getActor(this.selectedActorId)
         .subscribe(actor => {
@@ -37,6 +49,11 @@ export class PersonPageComponent implements OnInit {
         });
     }
 
+    /*
+    *   Aszinkron módon beállítja a kiválasztott
+    *   színészhez tartozó filmeket a personService segítségével
+    *   Ha nem érkezett adat hibát dob.
+    */
     getMoviesOfActor() : void {
         this.personService.getMoviesOfActor(this.selectedActorId)
         .subscribe(people => {
@@ -47,6 +64,11 @@ export class PersonPageComponent implements OnInit {
         });
     }
 
+    /*
+    *   Aszinkron módon beállítja a kiválasztott
+    *   színészhez tartozó sorozatokat a personService segítségével
+    *   Ha nem érkezett adat hibát dob.
+    */
     getShowsOfActor() : void {
         this.personService.getShowsOfActor(this.selectedActorId)
         .subscribe(people => {

@@ -30,10 +30,20 @@ export class ShowPageComponent implements OnInit {
         this.queryString = "";
     }
     
+    /* 
+    *   Ez a függvény minden egyes ShowPageComponent példányosodása esetén meghívódik azonnal.
+    *   Meghívja a getShows() fv-t.
+    */
     ngOnInit(): void {
         this.getShows();
     }
 
+    /*
+    *   A konstruktorban beállított paraméterek segítségével
+    *   feltölti a shows tagváltozót aszinkron módon.
+    *   Továbbá megvizsgálja, hogy kevesebb, mint 10 sorozat érkezett-e.
+    *   Ennek függvényében a lapozó gombot letiltó boolean értékét beállítja.
+    */
     getShows() {
         this.showService.getShows({
             pageSize: this.pageSize,
@@ -48,6 +58,12 @@ export class ShowPageComponent implements OnInit {
         });
     }
 
+    /*
+    *   Szintén aszinkron módon, a subscribe segítségével
+    *   feltölti a personService segítségével a kiválasztott
+    *   sorozathoz tartozó színészek tömbjét
+    *   Ha nem érkezett adat hibát dob.
+    */
     getActors() {
         this.personService.getPeopleOfShow(this.selectedShow.ids.trakt)
         .subscribe(people => {
@@ -58,17 +74,24 @@ export class ShowPageComponent implements OnInit {
         });
     }
 
+    /*
+    *   A böngészőben az actors/:id oldalra navigálja a felhasználót.
+    */
     goActorPage() : void {
         this.router.navigate([`/actors/${this.selectedActor.ids.trakt}`]);
     }
 
+    /*
+    *   Aszinkron módon a showService segítségével beállítja a
+    *   kiválasztott sorozathoz tartozó az epizódokat tartalmazó évadokat.
+    *   Ha nem érkezett adat hibát dob.
+    */
     getEpisodesForShow() : void {
         this.showService.getEpisodesForShow(this.selectedShow.ids.trakt)
         .subscribe(seasons => {
             if (!seasons)
                 throw "Hiba történt az adatlekérdezés során.";
             this.seasons = seasons;
-            console.log(seasons);
         });
     }
 }

@@ -22,9 +22,19 @@ var ShowPageComponent = (function () {
         this.currentPage = 1;
         this.queryString = "";
     }
+    /*
+    *   Ez a függvény minden egyes ShowPageComponent példányosodása esetén meghívódik azonnal.
+    *   Meghívja a getShows() fv-t.
+    */
     ShowPageComponent.prototype.ngOnInit = function () {
         this.getShows();
     };
+    /*
+    *   A konstruktorban beállított paraméterek segítségével
+    *   feltölti a shows tagváltozót aszinkron módon.
+    *   Továbbá megvizsgálja, hogy kevesebb, mint 10 sorozat érkezett-e.
+    *   Ennek függvényében a lapozó gombot letiltó boolean értékét beállítja.
+    */
     ShowPageComponent.prototype.getShows = function () {
         var _this = this;
         this.showService.getShows({
@@ -39,6 +49,12 @@ var ShowPageComponent = (function () {
             _this.lastPage = shows.length < 10 ? true : false;
         });
     };
+    /*
+    *   Szintén aszinkron módon, a subscribe segítségével
+    *   feltölti a personService segítségével a kiválasztott
+    *   sorozathoz tartozó színészek tömbjét
+    *   Ha nem érkezett adat hibát dob.
+    */
     ShowPageComponent.prototype.getActors = function () {
         var _this = this;
         this.personService.getPeopleOfShow(this.selectedShow.ids.trakt)
@@ -49,9 +65,17 @@ var ShowPageComponent = (function () {
             people.cast.forEach(function (cast) { return _this.selectedShow.actors.push(cast.person); });
         });
     };
+    /*
+    *   A böngészőben az actors/:id oldalra navigálja a felhasználót.
+    */
     ShowPageComponent.prototype.goActorPage = function () {
         this.router.navigate(["/actors/" + this.selectedActor.ids.trakt]);
     };
+    /*
+    *   Aszinkron módon a showService segítségével beállítja a
+    *   kiválasztott sorozathoz tartozó az epizódokat tartalmazó évadokat.
+    *   Ha nem érkezett adat hibát dob.
+    */
     ShowPageComponent.prototype.getEpisodesForShow = function () {
         var _this = this;
         this.showService.getEpisodesForShow(this.selectedShow.ids.trakt)
@@ -59,7 +83,6 @@ var ShowPageComponent = (function () {
             if (!seasons)
                 throw "Hiba történt az adatlekérdezés során.";
             _this.seasons = seasons;
-            console.log(seasons);
         });
     };
     return ShowPageComponent;

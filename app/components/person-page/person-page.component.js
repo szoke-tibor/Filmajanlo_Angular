@@ -18,6 +18,13 @@ var PersonPageComponent = (function () {
         this.personService = personService;
         this.route = route;
     }
+    /*
+    *   Ez a függvény minden egyes PersonPageComponent példányosodása esetén meghívódik azonnal.
+    *   Példányosítja a kiválasztott színész mezőt, hogy későbbi lekérdezések ne null objecten hívódjanak.
+    *   A routingból kinyert paramétert eltárolja a selectedActorId változóban.
+    *   Ezek után már be tudja állítani a kiválasztott színész objektumot.
+    *   Majd annak filmjeit és sorozatait is beállítja.
+    */
     PersonPageComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.route.params.subscribe(function (params) {
@@ -28,6 +35,11 @@ var PersonPageComponent = (function () {
             _this.getShowsOfActor();
         });
     };
+    /*
+    *   Aszinkron módon beállítja a selectedActor-t a
+    *   personService segítségével
+    *   Ha nem érkezett adat hibát dob.
+    */
     PersonPageComponent.prototype.getActor = function () {
         var _this = this;
         this.personService.getActor(this.selectedActorId)
@@ -37,6 +49,11 @@ var PersonPageComponent = (function () {
             _this.selectedActor = actor;
         });
     };
+    /*
+    *   Aszinkron módon beállítja a kiválasztott
+    *   színészhez tartozó filmeket a personService segítségével
+    *   Ha nem érkezett adat hibát dob.
+    */
     PersonPageComponent.prototype.getMoviesOfActor = function () {
         var _this = this;
         this.personService.getMoviesOfActor(this.selectedActorId)
@@ -47,6 +64,11 @@ var PersonPageComponent = (function () {
             people.cast.forEach(function (cast) { return _this.moviesOfActor.push(cast.movie); });
         });
     };
+    /*
+    *   Aszinkron módon beállítja a kiválasztott
+    *   színészhez tartozó sorozatokat a personService segítségével
+    *   Ha nem érkezett adat hibát dob.
+    */
     PersonPageComponent.prototype.getShowsOfActor = function () {
         var _this = this;
         this.personService.getShowsOfActor(this.selectedActorId)
