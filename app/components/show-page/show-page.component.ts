@@ -47,6 +47,8 @@ export class ShowPageComponent implements OnInit {
             query: this.queryString
         })
         .subscribe(shows => {
+            if (!shows)
+                throw "Hiba történt az adatlekérdezés során.";
             this.shows = shows;
             this.lastPage = shows.length < 10 ? true : false;
         });
@@ -55,6 +57,8 @@ export class ShowPageComponent implements OnInit {
     getActors() {
         this.personService.getPeopleOfShow(this.selectedShow.ids.trakt)
         .subscribe(people => {
+            if (!people)
+                throw "Hiba történt az adatlekérdezés során.";
             this.selectedShow.actors = [];
             people.cast.forEach(cast => this.selectedShow.actors.push(cast.person));
         });
@@ -67,6 +71,8 @@ export class ShowPageComponent implements OnInit {
     getEpisodesForShow() : void {
         this.showService.getEpisodesForShow(this.selectedShow.ids.trakt)
         .subscribe(seasons => {
+            if (!seasons)
+                throw "Hiba történt az adatlekérdezés során.";
             this.seasons = seasons;
             console.log(seasons);
         });

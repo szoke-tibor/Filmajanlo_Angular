@@ -33,6 +33,8 @@ var ShowPageComponent = (function () {
             query: this.queryString
         })
             .subscribe(function (shows) {
+            if (!shows)
+                throw "Hiba történt az adatlekérdezés során.";
             _this.shows = shows;
             _this.lastPage = shows.length < 10 ? true : false;
         });
@@ -41,6 +43,8 @@ var ShowPageComponent = (function () {
         var _this = this;
         this.personService.getPeopleOfShow(this.selectedShow.ids.trakt)
             .subscribe(function (people) {
+            if (!people)
+                throw "Hiba történt az adatlekérdezés során.";
             _this.selectedShow.actors = [];
             people.cast.forEach(function (cast) { return _this.selectedShow.actors.push(cast.person); });
         });
@@ -52,6 +56,8 @@ var ShowPageComponent = (function () {
         var _this = this;
         this.showService.getEpisodesForShow(this.selectedShow.ids.trakt)
             .subscribe(function (seasons) {
+            if (!seasons)
+                throw "Hiba történt az adatlekérdezés során.";
             _this.seasons = seasons;
             console.log(seasons);
         });

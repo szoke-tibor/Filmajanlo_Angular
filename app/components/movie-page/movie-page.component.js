@@ -34,6 +34,8 @@ var MoviePageComponent = (function () {
             query: this.queryString
         })
             .subscribe(function (movies) {
+            if (!movies)
+                throw "Hiba történt az adatlekérdezés során.";
             _this.movies = movies;
             _this.lastPage = movies.length < 10 ? true : false;
         });
@@ -42,6 +44,8 @@ var MoviePageComponent = (function () {
         var _this = this;
         this.personService.getPeopleOfMovie(this.selectedMovie.ids.trakt)
             .subscribe(function (people) {
+            if (!people)
+                throw "Hiba történt az adatlekérdezés során.";
             _this.selectedMovie.actors = [];
             people.cast.forEach(function (cast) { return _this.selectedMovie.actors.push(cast.person); });
         });
@@ -53,6 +57,8 @@ var MoviePageComponent = (function () {
         var _this = this;
         this.movieService.getRelatedMovies(this.selectedMovie.ids.trakt)
             .subscribe(function (movies) {
+            if (!movies)
+                throw "Hiba történt az adatlekérdezés során.";
             _this.relatedMovies = movies;
         });
     };

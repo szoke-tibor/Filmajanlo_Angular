@@ -32,6 +32,8 @@ var PersonPageComponent = (function () {
         var _this = this;
         this.personService.getActor(this.selectedActorId)
             .subscribe(function (actor) {
+            if (!actor)
+                throw "Hiba történt az adatlekérdezés során.";
             _this.selectedActor = actor;
         });
     };
@@ -39,6 +41,8 @@ var PersonPageComponent = (function () {
         var _this = this;
         this.personService.getMoviesOfActor(this.selectedActorId)
             .subscribe(function (people) {
+            if (!people)
+                throw "Hiba történt az adatlekérdezés során.";
             _this.moviesOfActor = [];
             people.cast.forEach(function (cast) { return _this.moviesOfActor.push(cast.movie); });
         });
@@ -47,6 +51,8 @@ var PersonPageComponent = (function () {
         var _this = this;
         this.personService.getShowsOfActor(this.selectedActorId)
             .subscribe(function (people) {
+            if (!people)
+                throw "Hiba történt az adatlekérdezés során.";
             _this.showsOfActor = [];
             people.cast.forEach(function (cast) { return _this.showsOfActor.push(cast.show); });
         });

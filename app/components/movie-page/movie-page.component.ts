@@ -49,6 +49,8 @@ export class MoviePageComponent implements OnInit {
             query: this.queryString
         })
         .subscribe(movies => {
+            if (!movies)
+                throw "Hiba történt az adatlekérdezés során.";
             this.movies = movies;
             this.lastPage = movies.length < 10 ? true : false;
         });
@@ -57,6 +59,8 @@ export class MoviePageComponent implements OnInit {
     getActors() {
         this.personService.getPeopleOfMovie(this.selectedMovie.ids.trakt)
         .subscribe(people => {
+            if (!people)
+                throw "Hiba történt az adatlekérdezés során.";
             this.selectedMovie.actors = [];
             people.cast.forEach(cast => this.selectedMovie.actors.push(cast.person));
         });
@@ -70,6 +74,8 @@ export class MoviePageComponent implements OnInit {
     getRelatedMovies() {
         this.movieService.getRelatedMovies(this.selectedMovie.ids.trakt)
         .subscribe(movies => {
+            if (!movies)
+                throw "Hiba történt az adatlekérdezés során.";
             this.relatedMovies = movies;
         });
     }

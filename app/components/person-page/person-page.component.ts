@@ -36,6 +36,8 @@ export class PersonPageComponent implements OnInit {
     getActor() : void {
         this.personService.getActor(this.selectedActorId)
         .subscribe(actor => {
+            if (!actor)
+                throw "Hiba történt az adatlekérdezés során.";
             this.selectedActor = actor;
         });
     }
@@ -43,6 +45,8 @@ export class PersonPageComponent implements OnInit {
     getMoviesOfActor() : void {
         this.personService.getMoviesOfActor(this.selectedActorId)
         .subscribe(people => {
+            if (!people)
+                throw "Hiba történt az adatlekérdezés során.";
             this.moviesOfActor = [];
             people.cast.forEach(cast => this.moviesOfActor.push(cast.movie));
         });
@@ -51,6 +55,8 @@ export class PersonPageComponent implements OnInit {
     getShowsOfActor() : void {
         this.personService.getShowsOfActor(this.selectedActorId)
         .subscribe(people => {
+            if (!people)
+                throw "Hiba történt az adatlekérdezés során.";
             this.showsOfActor = [];
             people.cast.forEach(cast => this.showsOfActor.push(cast.show));
         });
