@@ -16,22 +16,42 @@ export class PersonService {
         });
     }
 
+    /*
+    *   Hálozaton keresztül (http) json formátumban az API segítségével
+    *   lekérjük az adott id-val rendelkező filmhez tartozó embereket.
+    */
     getPeopleOfMovie(movieId: number) : Observable<People> {
         return this.http.get<People>(`https://api.trakt.tv/movies/${movieId}/people`, {headers: this.headers});
     }
 
+    /*
+    *   Hálozaton keresztül (http) json formátumban az API segítségével
+    *   lekérjük az adott id-val rendelkező sorozathoz tartozó embereket.
+    */
     getPeopleOfShow(showId: number) : Observable<People> {
         return this.http.get<People>(`https://api.trakt.tv/shows/${showId}/people`, {headers: this.headers});
     }
 
+    /*
+    *   Hálozaton keresztül (http) json formátumban az API segítségével
+    *   lekérjük az adott id-val rendelkező színészt (Person).
+    */
     getActor(selectedActorId: number) : Observable<Person> {
         return this.http.get<Person>(`https://api.trakt.tv/people/${selectedActorId}?extended=full`, {headers: this.headers});
     }
 
+    /*
+    *   Hálozaton keresztül (http) json formátumban az API segítségével
+    *   lekérjük azokat a filmeket melyekben adott id-val rendelkező színész szerepelt.
+    */
     getMoviesOfActor(selectedActorId: number) : Observable<People> {
         return this.http.get<People>(`https://api.trakt.tv/people/${selectedActorId}/movies`, {headers: this.headers});
     }
 
+    /*
+    *   Hálozaton keresztül (http) json formátumban az API segítségével
+    *   lekérjük azokat a sorozatokat melyekben adott id-val rendelkező színész szerepelt.
+    */
     getShowsOfActor(selectedActorId: number) : Observable<People> {
         return this.http.get<People>(`https://api.trakt.tv/people/${selectedActorId}/shows`, {headers: this.headers});
     }

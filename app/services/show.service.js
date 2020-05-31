@@ -20,12 +20,26 @@ var ShowService = (function () {
             "trakt-api-version": "2"
         });
     }
+    /*
+    *   Amennyiben érkeztek paraméterek, úgy azok segítségével, amennyiben nem,
+    *   úgy alapértelmezett értékekkel végez el egy API hívást, melynek következtében
+    *   json formátumban megérkeznek a megfelelő sorozatok adatai.
+    *   Kéréskor elküldjük fejlécben az api verzióját, az egyedi azonosítónkat valamint
+    *   hogy milyen formátumban várjuk a választ (json).
+    */
     ShowService.prototype.getShows = function (options) {
         var page = (options && options.page) || 1;
         var pageSize = (options && options.pageSize) || 10;
         var query = (options && options.query) || "";
         return this.http.get("https://api.trakt.tv/shows/popular?extended=full&page=" + page + "&limit=" + pageSize + "&query=" + query, { headers: this.headers });
     };
+    /*
+    *   Hálózaton keresztül, az API segítségével a megadott paraméter alapján
+    *   json formátumban lekéri az adott azonosítójú sorozathoz tartozó évadokat
+    *   melyek taratlmazzák az epizódokhoz tartozó információkat is.
+    *   Kéréskor elküldjük fejlécben az api verzióját, az egyedi azonosítónkat valamint
+    *   hogy milyen formátumban várjuk a választ (json).
+    */
     ShowService.prototype.getEpisodesForShow = function (showId) {
         return this.http.get("https://api.trakt.tv/shows/" + showId + "/seasons?extended=episodes", { headers: this.headers });
     };

@@ -20,18 +20,38 @@ var PersonService = (function () {
             "trakt-api-version": "2"
         });
     }
+    /*
+    *   Hálozaton keresztül (http) json formátumban az API segítségével
+    *   lekérjük az adott id-val rendelkező filmhez tartozó embereket.
+    */
     PersonService.prototype.getPeopleOfMovie = function (movieId) {
         return this.http.get("https://api.trakt.tv/movies/" + movieId + "/people", { headers: this.headers });
     };
+    /*
+    *   Hálozaton keresztül (http) json formátumban az API segítségével
+    *   lekérjük az adott id-val rendelkező sorozathoz tartozó embereket.
+    */
     PersonService.prototype.getPeopleOfShow = function (showId) {
         return this.http.get("https://api.trakt.tv/shows/" + showId + "/people", { headers: this.headers });
     };
+    /*
+    *   Hálozaton keresztül (http) json formátumban az API segítségével
+    *   lekérjük az adott id-val rendelkező színészt (Person).
+    */
     PersonService.prototype.getActor = function (selectedActorId) {
         return this.http.get("https://api.trakt.tv/people/" + selectedActorId + "?extended=full", { headers: this.headers });
     };
+    /*
+    *   Hálozaton keresztül (http) json formátumban az API segítségével
+    *   lekérjük azokat a filmeket melyekben adott id-val rendelkező színész szerepelt.
+    */
     PersonService.prototype.getMoviesOfActor = function (selectedActorId) {
         return this.http.get("https://api.trakt.tv/people/" + selectedActorId + "/movies", { headers: this.headers });
     };
+    /*
+    *   Hálozaton keresztül (http) json formátumban az API segítségével
+    *   lekérjük azokat a sorozatokat melyekben adott id-val rendelkező színész szerepelt.
+    */
     PersonService.prototype.getShowsOfActor = function (selectedActorId) {
         return this.http.get("https://api.trakt.tv/people/" + selectedActorId + "/shows", { headers: this.headers });
     };
