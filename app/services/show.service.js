@@ -20,8 +20,11 @@ var ShowService = (function () {
             "trakt-api-version": "2"
         });
     }
-    ShowService.prototype.getShows = function () {
-        return this.http.get("https://api.trakt.tv/shows/popular", { headers: this.headers });
+    ShowService.prototype.getShows = function (options) {
+        var page = (options && options.page) || 1;
+        var pageSize = (options && options.pageSize) || 10;
+        var query = (options && options.query) || "";
+        return this.http.get("https://api.trakt.tv/shows/popular?extended=full&page=" + page + "&limit=" + pageSize + "&query=" + query, { headers: this.headers });
     };
     return ShowService;
 }());

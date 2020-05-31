@@ -1,3 +1,5 @@
+import { Person } from "./person.type";
+
 export interface Show {
     title: string;
     year: number;
@@ -7,5 +9,13 @@ export interface Show {
       tvdb: number;
       imdb: string;
       tmdb: number;
+      tvrage: number;
     }
+    rating: number;
+    runtime: number;
+    trailer: string;
+    language: string;
+    genres: string[];
+    overview: string;
+    actors: Person[];
 }

@@ -1,4 +1,50 @@
-<div *ngFor='let show of shows'>
-    <dt>Title:{{show.title}}</dt>
-    <dt>Year:{{show.year}}</dt>
+<div class="col-lg-3 panel panel-info">
+    <input class="form-control" placeholder="Search for shows..." [(ngModel)]="queryString"
+            (keyup)="currentPage=1;getShows()">
+    <div *ngFor="let show of shows">
+        <dt>
+            <a [class.active]="show === selectedShow" (click)="selectedShow = show;getActors()">
+                <h6 class="text-info">Title:{{show.title}}
+                <p>Year:{{show.year}}</p></h6>
+            </a>
+        </dt>
+    </div>
+    <div class="paging">
+        <button class="col-xs-4 btn btn-info" [disabled]="currentPage <= 1"
+            (click)="currentPage=currentPage-1;getShows()">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+        </button>
+        <div class="col-xs-4 page-numbers">
+            {{currentPage}}
+        </div>
+        <button class="col-xs-4 btn btn-info" [disabled]="lastPage"
+            (click)="currentPage=currentPage+1;getShows()">
+            <i class="glyphicon glyphicon-chevron-right"></i>
+        </button>
+    </div>
+</div>
+
+<div class="col-lg-3 panel panel-info" *ngIf="selectedShow">
+    <h6 class="text-info">
+        <p>Title: {{selectedShow.title}}</p>
+        <p>Year: {{selectedShow.year}}</p>
+        <p>Rating: {{selectedShow.rating}}</p>
+        <p>Runtime: {{selectedShow.runtime}} minutes</p>
+        <p>Trailer: <a href="{{selectedShow.trailer}}">Link</a></p>
+        <p>Language: {{selectedShow.language}}</p>
+        <p>
+            Genres:
+            <em *ngFor="let genre of selectedShow.genres">
+                {{genre}}
+            </em>
+        </p>
+        <p>Description:</p>
+        <p>{{selectedShow.overview}}</p>
+        <p>Actors:</p>
+        <p *ngFor="let actor of selectedShow.actors">
+            <a (click)="selectedActor = actor;goActorPage()">
+                {{actor.name}}
+            </a>
+        </p>
+    </h6>
 </div>

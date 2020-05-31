@@ -11,14 +11,42 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var show_service_1 = require("../../services/show.service");
+var person_service_1 = require("../../services/person.service");
+var router_1 = require("@angular/router");
 var ShowPageComponent = (function () {
-    function ShowPageComponent(showService) {
+    function ShowPageComponent(showService, personService, router) {
         this.showService = showService;
+        this.personService = personService;
+        this.router = router;
+        this.pageSize = 10;
+        this.currentPage = 1;
+        this.queryString = "";
     }
     ShowPageComponent.prototype.ngOnInit = function () {
+        this.getShows();
+    };
+    ShowPageComponent.prototype.getShows = function () {
         var _this = this;
-        this.showService.getShows()
-            .subscribe(function (shows) { return _this.shows = shows; });
+        this.showService.getShows({
+            pageSize: this.pageSize,
+            page: this.currentPage,
+            query: this.queryString
+        })
+            .subscribe(function (shows) {
+            _this.shows = shows;
+            _this.lastPage = shows.length < 10 ? true : false;
+        });
+    };
+    ShowPageComponent.prototype.getActors = function () {
+        var _this = this;
+        this.personService.getPeopleOfShow(this.selectedShow.ids.trakt)
+            .subscribe(function (people) {
+            _this.selectedShow.actors = [];
+            people.cast.forEach(function (cast) { return _this.selectedShow.actors.push(cast.person); });
+        });
+    };
+    ShowPageComponent.prototype.goActorPage = function () {
+        this.router.navigate(["/actors/" + this.selectedActor.ids.trakt]);
     };
     return ShowPageComponent;
 }());
@@ -27,7 +55,9 @@ ShowPageComponent = __decorate([
         selector: "show-page",
         templateUrl: "./show-page.component.html"
     }),
-    __metadata("design:paramtypes", [show_service_1.ShowService])
+    __metadata("design:paramtypes", [show_service_1.ShowService,
+        person_service_1.PersonService,
+        router_1.Router])
 ], ShowPageComponent);
 exports.ShowPageComponent = ShowPageComponent;
 //# sourceMappingURL=show-page.component.js.map

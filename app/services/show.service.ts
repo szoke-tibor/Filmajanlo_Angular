@@ -15,7 +15,10 @@ export class ShowService {
         });
     }
 
-    getShows() : Observable<Show[]> {
-        return this.http.get<Show[]>("https://api.trakt.tv/shows/popular", {headers: this.headers});
+    getShows(options?: { pageSize?: number, page?: number, query?: string }) : Observable<Show[]>{
+        let page = (options && options.page) || 1;
+        let pageSize = (options && options.pageSize) || 10;
+        let query = (options && options.query) || "";
+        return this.http.get<Show[]>(`https://api.trakt.tv/shows/popular?extended=full&page=${page}&limit=${pageSize}&query=${query}`, {headers: this.headers});
     }
 }
