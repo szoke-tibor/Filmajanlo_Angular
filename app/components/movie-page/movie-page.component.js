@@ -28,7 +28,10 @@ var MoviePageComponent = (function () {
     *   Meghívja a getMovies() fv-t.
     */
     MoviePageComponent.prototype.ngOnInit = function () {
-        this.getMovies();
+        if (!this.loadFromLocalStorage()) {
+            console.log("LOAD WITH GETTER");
+            this.getMovies();
+        }
     };
     /*
     *   A konstruktorban beállított paraméterek segítségével
@@ -105,6 +108,34 @@ var MoviePageComponent = (function () {
     MoviePageComponent.prototype.ratingRounding = function (movies) {
         var _this = this;
         movies.forEach(function (movie) { return movie.rating = _this.numberRounder(movie.rating, 2); });
+    };
+    MoviePageComponent.prototype.saveToLocalStorage = function () {
+        localStorage.setItem("moviePage", JSON.stringify({
+            movies: this.movies,
+            selectedMovie: this.selectedMovie,
+            relatedMovies: this.relatedMovies,
+            toggleRelateMovies: this.toggleRelateMovies,
+            pageSize: this.pageSize,
+            currentPage: this.currentPage,
+            lastPage: this.lastPage,
+            queryString: this.queryString
+        }));
+    };
+    MoviePageComponent.prototype.loadFromLocalStorage = function () {
+        var data = JSON.parse(localStorage.getItem('moviePage'));
+        if (!data)
+            return false;
+        this.movies = data.movies;
+        this.selectedMovie = data.selectedMovie;
+        this.relatedMovies = data.relatedMovies;
+        this.toggleRelateMovies = data.toggleRelateMovies;
+        this.pageSize = data.pageSize;
+        this.currentPage = data.currentPage;
+        this.lastPage = data.lastPage;
+        this.queryString = data.queryString;
+        console.log("LOAD FROM LOCALSTORAGE");
+        localStorage.removeItem("moviePage");
+        return true;
     };
     return MoviePageComponent;
 }());

@@ -13,10 +13,14 @@ var core_1 = require("@angular/core");
 var person_type_1 = require("../../models/person.type");
 var person_service_1 = require("../../services/person.service");
 var router_1 = require("@angular/router");
+var common_1 = require("@angular/common");
 var PersonPageComponent = (function () {
-    function PersonPageComponent(personService, route) {
+    function PersonPageComponent(personService, route, location) {
         this.personService = personService;
         this.route = route;
+        this.location = location;
+        this.moviesOfActor = [];
+        this.showsOfActor = [];
     }
     /*
     *   Ez a függvény minden egyes PersonPageComponent példányosodása esetén meghívódik azonnal.
@@ -60,7 +64,6 @@ var PersonPageComponent = (function () {
             .subscribe(function (people) {
             if (!people)
                 throw "Hiba történt az adatlekérdezés során.";
-            _this.moviesOfActor = [];
             people.cast.forEach(function (cast) { return _this.moviesOfActor.push(cast.movie); });
         });
     };
@@ -75,9 +78,11 @@ var PersonPageComponent = (function () {
             .subscribe(function (people) {
             if (!people)
                 throw "Hiba történt az adatlekérdezés során.";
-            _this.showsOfActor = [];
             people.cast.forEach(function (cast) { return _this.showsOfActor.push(cast.show); });
         });
+    };
+    PersonPageComponent.prototype.goBack = function () {
+        this.location.back();
     };
     return PersonPageComponent;
 }());
@@ -87,7 +92,8 @@ PersonPageComponent = __decorate([
         templateUrl: "./person-page.component.html"
     }),
     __metadata("design:paramtypes", [person_service_1.PersonService,
-        router_1.ActivatedRoute])
+        router_1.ActivatedRoute,
+        common_1.Location])
 ], PersonPageComponent);
 exports.PersonPageComponent = PersonPageComponent;
 //# sourceMappingURL=person-page.component.js.map

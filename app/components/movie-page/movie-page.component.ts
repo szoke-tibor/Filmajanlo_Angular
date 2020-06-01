@@ -4,6 +4,7 @@ import { MovieService } from "../../services/movie.service";
 import { Person } from "../../models/person.type";
 import { PersonService } from "../../services/person.service";
 import { Router } from "@angular/router";
+import { SaveMoviePageData } from "../../models/saveData.type";
 
 @Component({
     selector: "movie-page",
@@ -36,7 +37,10 @@ export class MoviePageComponent implements OnInit {
     *   Meghívja a getMovies() fv-t.
     */
     ngOnInit(): void {
-        this.getMovies();
+        if (!this.loadFromLocalStorage()) {
+            console.log("LOAD WITH GETTER");
+            this.getMovies();
+        }
     }
 
     /*
@@ -115,5 +119,37 @@ export class MoviePageComponent implements OnInit {
     */
     ratingRounding(movies: Movie[]) {
         movies.forEach(movie => movie.rating = this.numberRounder(movie.rating, 2));
+    }
+
+    saveToLocalStorage() : void {
+        localStorage.setItem("moviePage", JSON.stringify(<SaveMoviePageData>{
+            movies: this.movies,
+            selectedMovie: this.selectedMovie,
+            relatedMovies: this.relatedMovies,
+            toggleRelateMovies: this.toggleRelateMovies,
+            pageSize: this.pageSize,
+            currentPage: this.currentPage,
+            lastPage: this.lastPage,
+            queryString: this.queryString
+        }));
+    }
+
+    loadFromLocalStorage() : boolean {
+        let data = JSON.parse(localStorage.getItem('moviePage'));
+        if(!data)
+            return false;
+
+        this.movies = data.movies;
+        this.selectedMovie = data.selectedMovie;
+        this.relatedMovies = data.relatedMovies;
+        this.toggleRelateMovies = data.toggleRelateMovies;
+        this.pageSize = data.pageSize;
+        this.currentPage = data.currentPage;
+        this.lastPage = data.lastPage;
+        this.queryString = data.queryString;
+        
+        console.log("LOAD FROM LOCALSTORAGE");
+        localStorage.removeItem("moviePage");
+        return true;
     }
 }

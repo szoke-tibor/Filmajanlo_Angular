@@ -67,8 +67,11 @@
                 <div class="col">
                     <p>Actors:</p>
                     <p>
-                        <a class="actor" (click)="selectedActor = actor;goActorPage()" *ngFor="let actor of selectedMovie.actors">
-                            - {{actor.name}}
+                        <a class="actor" (click)="selectedActor = actor;
+                                                  saveToLocalStorage();
+                                                  goActorPage()"
+                            *ngFor="let actor of selectedMovie.actors">
+                                - {{actor.name}}
                         </a> -
                     </p>
                 </div>
@@ -88,8 +91,8 @@
                 <tbody *ngFor="let movie of relatedMovies">
                     <tr class="table-secondary">
                         <td style="vertical-align: middle;">{{movie.title}}</td>
-                        <td style="vertical-align: middle;text-align:center;">Year: {{movie.year}}</td>
-                        <td style="vertical-align: middle;text-align:center;">Rating: {{movie.rating}}</td>
+                        <td style="vertical-align: middle;text-align:center;">{{movie.year}}</td>
+                        <td style="vertical-align: middle;text-align:center;">{{movie.rating}}</td>
                     </tr>
                 </tbody>
             </table>

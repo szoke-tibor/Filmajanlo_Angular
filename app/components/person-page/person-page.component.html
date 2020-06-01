@@ -23,6 +23,13 @@
                         <td style="vertical-align: middle;">{{movie.title}}</td>
                     </tr>
                 </tbody>
+                <tbody>
+                    <tr>
+                        <td style="vertical-align: middle;">
+                            <button type="button" class="btn btn-primary" (click)="goBack()">Back</button>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </div>
         <div class="col" *ngIf="showsOfActor.length !== 0">

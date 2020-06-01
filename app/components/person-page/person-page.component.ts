@@ -4,6 +4,7 @@ import { Show } from "../../models/show.type";
 import { Person } from "../../models/person.type";
 import { PersonService } from "../../services/person.service";
 import { ActivatedRoute } from "@angular/router";
+import { Location } from "@angular/common";
 
 @Component({
     selector: "person-page",
@@ -16,7 +17,11 @@ export class PersonPageComponent implements OnInit {
     showsOfActor: Show[];
 
     constructor(private personService : PersonService,
-                private route: ActivatedRoute) { }
+                private route: ActivatedRoute,
+                private location: Location) {
+                    this.moviesOfActor = [];
+                    this.showsOfActor = [];
+                }
     
     /* 
     *   Ez a függvény minden egyes PersonPageComponent példányosodása esetén meghívódik azonnal.
@@ -59,7 +64,6 @@ export class PersonPageComponent implements OnInit {
         .subscribe(people => {
             if (!people)
                 throw "Hiba történt az adatlekérdezés során.";
-            this.moviesOfActor = [];
             people.cast.forEach(cast => this.moviesOfActor.push(cast.movie));
         });
     }
@@ -74,8 +78,11 @@ export class PersonPageComponent implements OnInit {
         .subscribe(people => {
             if (!people)
                 throw "Hiba történt az adatlekérdezés során.";
-            this.showsOfActor = [];
             people.cast.forEach(cast => this.showsOfActor.push(cast.show));
         });
+    }
+
+    goBack() : void {
+        this.location.back();
     }
 }
