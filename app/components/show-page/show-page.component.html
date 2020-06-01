@@ -1,7 +1,7 @@
 <div class="container col-lg-10">
     <div class="row">
         <div class="col">
-            <input class="form-control" placeholder="Search for movies..." [(ngModel)]="queryString"
+            <input class="form-control" placeholder="Search for shows..." [(ngModel)]="queryString"
             (keyup)="currentPage=1;getShows()">
         <table class="table table-hover">
             <tbody *ngFor="let show of shows">
