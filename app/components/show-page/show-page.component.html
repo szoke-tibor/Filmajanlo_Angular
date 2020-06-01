@@ -7,9 +7,9 @@
             <thead>
                 <tr class="table-active">
                     <td></td>
-                    <td>Title</td>
-                    <td style="text-align:center;">Year</td>
-                    <td style="text-align:center;">Runtime</td>
+                    <td><strong>Title</strong></td>
+                    <td style="text-align:center;"><strong>Year</strong></td>
+                    <td style="text-align:center;"><strong>Runtime</strong></td>
                 </tr>
             </thead>
             <tbody *ngFor="let show of shows">
@@ -18,10 +18,7 @@
                                         (click)="selectedShow = show;
                                         getActors();
                                         getEpisodesForShow()">
-                        <th>
-                            <button type="button" class="btn btn-primary">Select</button>
-                        </th>
-                    </a>
+                    <td><button type="button" class="btn btn-primary">Select</button></td></a>
                     <td style="vertical-align: middle;">{{show.title}}</td>
                     <td style="vertical-align: middle;text-align:center;">{{show.year}}</td>
                     <td style="vertical-align: middle;text-align:center;">{{show.runtime}} minutes</td>
@@ -77,9 +74,9 @@
             <table class="table table-hover" *ngIf="selectedShow">
                 <thead>
                     <tr class="table-active">
-                        <td>Title</td>
-                        <td style="text-align:center;">Season</td>
-                        <td style="text-align:center;">Episode</td>
+                        <td><strong>Title</strong></td>
+                        <td style="text-align:center;"><strong>Season</strong></td>
+                        <td style="text-align:center;"><strong>Episode</strong></td>
                     </tr>
                 </thead>
                 <tbody *ngFor="let season of seasons">
