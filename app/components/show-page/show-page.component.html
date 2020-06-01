@@ -43,18 +43,18 @@
         </table>
         </div>
         <div class="col">
-            <h4 class="text-info" *ngIf="selectedShow">
-                <p>Title: {{selectedShow.title}}</p>
-                <p>Year: {{selectedShow.year}}</p>
-                <p>Trailer: <a href="{{selectedShow.trailer}}">Link</a></p>
-                <p>Language: {{selectedShow.language}}</p>
+            <h4 *ngIf="selectedShow">
+                <p><strong class="text-info">Title: </strong>{{selectedShow.title}}</p>
+                <p><strong class="text-info">Year: </strong>{{selectedShow.year}}</p>
+                <p><strong class="text-info">Trailer: </strong><a href="{{selectedShow.trailer}}">Link</a></p>
+                <p><strong class="text-info">Language: </strong>{{selectedShow.language}}</p>
                 <p>
-                    Genres:
+                    <strong class="text-info">Genres: </strong>
                     <em *ngFor="let genre of selectedShow.genres">
                         {{genre}}
                     </em>
                 </p>
-                <p>Description:</p>
+                <p><strong class="text-info">Description: </strong></p>
                 <p>{{selectedShow.overview}}</p>
             </h4>
             <h5 *ngIf="selectedShow">

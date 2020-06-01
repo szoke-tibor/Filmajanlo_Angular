@@ -1,11 +1,13 @@
 <div class="container col-lg-10">
     <div class="row">
         <div class="col">
-            <p><strong>Name: {{selectedActor.name}}</strong></p>
-            <p>Biography: {{selectedActor.biography}}</p>
-            <p>Born in {{selectedActor.birthplace}}, {{selectedActor.birthday}}</p>
-            <p *ngIf="selectedActor.death">Death: {{selectedActor.death}}</p>
-            <p *ngIf="selectedActor.homepage">Homepage: <a href="{{selectedActor.homepage}}">{{selectedActor.homepage}}</a></p>
+            <h4>
+                <p><strong class="text-info">Name: </strong>{{selectedActor.name}}</p>
+                <p *ngIf="selectedActor.biography"><strong class="text-info">Biography: </strong>{{selectedActor.biography}}</p>
+                <p *ngIf="selectedActor.birthplace && selectedActor.birthday"><strong class="text-info">Born in: </strong>{{selectedActor.birthplace}}, {{selectedActor.birthday}}</p>
+                <p *ngIf="selectedActor.death"><strong class="text-info">Death: </strong>{{selectedActor.death}}</p>
+                <p *ngIf="selectedActor.homepage"><strong class="text-info">Homepage: </strong>{{selectedActor.homepage}}</p>
+            </h4>
         </div>
     </div>
     <div class="row">
