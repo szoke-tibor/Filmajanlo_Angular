@@ -38,10 +38,8 @@ export class MoviePageComponent implements OnInit {
     *   Ellenkező esetben a korábban elmentett oldalállapotot fogjuk visszaállítani a localStorage-ból.
     */
     ngOnInit(): void {
-        if (!this.loadFromLocalStorage()) {
-            console.log("LOAD WITH GETTER");
+        if (!this.loadFromLocalStorage())
             this.getMovies();
-        }
     }
 
     /*
@@ -161,7 +159,6 @@ export class MoviePageComponent implements OnInit {
         this.lastPage = data.lastPage;
         this.queryString = data.queryString;
         
-        console.log("LOAD FROM LOCALSTORAGE");
         localStorage.removeItem("moviePage");
         return true;
     }

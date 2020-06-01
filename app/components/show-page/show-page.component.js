@@ -28,10 +28,8 @@ var ShowPageComponent = (function () {
     *   Ellenkező esetben a korábban elmentett oldalállapotot fogjuk visszaállítani a localStorage-ból.
     */
     ShowPageComponent.prototype.ngOnInit = function () {
-        if (!this.loadFromLocalStorage()) {
-            console.log("LOAD WITH GETTER");
+        if (!this.loadFromLocalStorage())
             this.getShows();
-        }
     };
     /*
     *   A konstruktorban beállított paraméterek segítségével
@@ -123,7 +121,6 @@ var ShowPageComponent = (function () {
         this.currentPage = data.currentPage;
         this.lastPage = data.lastPage;
         this.queryString = data.queryString;
-        console.log("LOAD FROM LOCALSTORAGE");
         localStorage.removeItem("showPage");
         return true;
     };

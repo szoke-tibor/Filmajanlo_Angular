@@ -37,10 +37,8 @@ export class ShowPageComponent implements OnInit {
     *   Ellenkező esetben a korábban elmentett oldalállapotot fogjuk visszaállítani a localStorage-ból.
     */
     ngOnInit(): void {
-        if (!this.loadFromLocalStorage()) {
-            console.log("LOAD WITH GETTER");
+        if (!this.loadFromLocalStorage())
             this.getShows();
-        }
     }
 
     /*
@@ -137,7 +135,6 @@ export class ShowPageComponent implements OnInit {
         this.lastPage = data.lastPage;
         this.queryString = data.queryString;
         
-        console.log("LOAD FROM LOCALSTORAGE");
         localStorage.removeItem("showPage");
         return true;
     }

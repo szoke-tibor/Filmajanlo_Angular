@@ -29,10 +29,8 @@ var MoviePageComponent = (function () {
     *   Ellenkező esetben a korábban elmentett oldalállapotot fogjuk visszaállítani a localStorage-ból.
     */
     MoviePageComponent.prototype.ngOnInit = function () {
-        if (!this.loadFromLocalStorage()) {
-            console.log("LOAD WITH GETTER");
+        if (!this.loadFromLocalStorage())
             this.getMovies();
-        }
     };
     /*
     *   A konstruktorban beállított paraméterek segítségével
@@ -146,7 +144,6 @@ var MoviePageComponent = (function () {
         this.currentPage = data.currentPage;
         this.lastPage = data.lastPage;
         this.queryString = data.queryString;
-        console.log("LOAD FROM LOCALSTORAGE");
         localStorage.removeItem("moviePage");
         return true;
     };
