@@ -33,7 +33,8 @@ export class ShowPageComponent implements OnInit {
     
     /* 
     *   Ez a függvény minden egyes ShowPageComponent példányosodása esetén meghívódik azonnal.
-    *   Meghívja a getShows() fv-t.
+    *   Ha a localStorage-ban nem mentettük el korábban az oldal állapotát, akkor meghívja a getShows() fv-t.
+    *   Ellenkező esetben a korábban elmentett oldalállapotot fogjuk visszaállítani a localStorage-ból.
     */
     ngOnInit(): void {
         if (!this.loadFromLocalStorage()) {
@@ -98,7 +99,12 @@ export class ShowPageComponent implements OnInit {
             this.seasons = seasons;
         });
     }
-
+    
+    /*
+    *   Egy SaveShowPageData szerkezetű, json formátumú fájlként
+    *   elmentjük az oldal aktuális állapotát a változói segítségével
+    *   a localStorage-ba.
+    */
     saveToLocalStorage() : void {
         localStorage.setItem("showPage", JSON.stringify(<SaveShowPageData>{
             shows: this.shows,
@@ -111,6 +117,13 @@ export class ShowPageComponent implements OnInit {
         }));
     }
 
+    /*
+    *   Az localStorage-ba elmentett showPage key-jel jelölt
+    *   json formátumú fájlból visszatöltjük az oldal korábbi állapotát,
+    *   majd töröljük a localStorage-ből a korábban elmentett állapotot
+    *   Amennyiben a localStorageből való olvasás sikertelen a visszatérés false,
+    *   abban az esetben viszont ha sikeres volt, úgy a visszatérési érték true lesz.
+    */
     loadFromLocalStorage() : boolean {
         let data = JSON.parse(localStorage.getItem('showPage'));
         if(!data)

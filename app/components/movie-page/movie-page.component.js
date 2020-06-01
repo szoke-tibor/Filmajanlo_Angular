@@ -25,7 +25,8 @@ var MoviePageComponent = (function () {
     }
     /*
     *   Ez a függvény minden egyes MoviePageComponent példányosodása esetén meghívódik azonnal.
-    *   Meghívja a getMovies() fv-t.
+    *   Ha a localStorage-ban nem mentettük el korábban az oldal állapotát, akkor meghívja a getMovies() fv-t.
+    *   Ellenkező esetben a korábban elmentett oldalállapotot fogjuk visszaállítani a localStorage-ból.
     */
     MoviePageComponent.prototype.ngOnInit = function () {
         if (!this.loadFromLocalStorage()) {
@@ -109,6 +110,11 @@ var MoviePageComponent = (function () {
         var _this = this;
         movies.forEach(function (movie) { return movie.rating = _this.numberRounder(movie.rating, 2); });
     };
+    /*
+    *   Egy SaveMoviePageData szerkezetű, json formátumú fájlként
+    *   elmentjük az oldal aktuális állapotát a változói segítségével
+    *   a localStorage-ba.
+    */
     MoviePageComponent.prototype.saveToLocalStorage = function () {
         localStorage.setItem("moviePage", JSON.stringify({
             movies: this.movies,
@@ -121,6 +127,13 @@ var MoviePageComponent = (function () {
             queryString: this.queryString
         }));
     };
+    /*
+    *   Az localStorage-ba elmentett moviePage key-jel jelölt
+    *   json formátumú fájlból visszatöltjük az oldal korábbi állapotát,
+    *   majd töröljük a localStorage-ből a korábban elmentett állapotot
+    *   Amennyiben a localStorageből való olvasás sikertelen a visszatérés false,
+    *   abban az esetben viszont ha sikeres volt, úgy a visszatérési érték true lesz.
+    */
     MoviePageComponent.prototype.loadFromLocalStorage = function () {
         var data = JSON.parse(localStorage.getItem('moviePage'));
         if (!data)
