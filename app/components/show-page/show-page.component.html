@@ -4,6 +4,14 @@
             <input class="form-control" placeholder="Search for shows..." [(ngModel)]="queryString"
             (keyup)="currentPage=1;getShows()">
         <table class="table table-hover">
+            <thead>
+                <tr class="table-active">
+                    <td></td>
+                    <td>Title</td>
+                    <td style="text-align:center;">Year</td>
+                    <td style="text-align:center;">Runtime</td>
+                </tr>
+            </thead>
             <tbody *ngFor="let show of shows">
                 <tr>
                     <a [class.active]="show === selectedShow"
@@ -14,16 +22,16 @@
                             <button type="button" class="btn btn-primary">Select</button>
                         </th>
                     </a>
-                    <td>{{show.title}}</td>
-                    <td>Year: {{show.year}}</td>
-                    <td>Runtime: {{show.runtime}} minutes</td>
+                    <td style="vertical-align: middle;">{{show.title}}</td>
+                    <td style="vertical-align: middle;text-align:center;">{{show.year}}</td>
+                    <td style="vertical-align: middle;text-align:center;">{{show.runtime}} minutes</td>
                 </tr>
             </tbody>
             <tbody>
                 <td></td>
                 <td></td>
                 <td></td>
-                <td>
+                <td style="vertical-align: middle;text-align:center;">
                     <button type="button" class="btn btn-primary" [disabled]="currentPage <= 1"
                                     (click)="currentPage=currentPage-1;getShows()">
                         &laquo;
@@ -67,13 +75,20 @@
     <div class="row">
         <div class="col">
             <table class="table table-hover" *ngIf="selectedShow">
+                <thead>
+                    <tr class="table-active">
+                        <td>Title</td>
+                        <td style="text-align:center;">Season</td>
+                        <td style="text-align:center;">Episode</td>
+                    </tr>
+                </thead>
                 <tbody *ngFor="let season of seasons">
                     <tr class="table-secondary" *ngFor="let episode of season.episodes">
                         <td>{{episode.title}}</td>
-                        <td *ngIf="season.number < 10">S0{{season.number}}</td>
-                        <td *ngIf="season.number >= 10">S{{season.number}}</td>
-                        <td *ngIf="episode.number < 10">E0{{episode.number}}</td>
-                        <td *ngIf="episode.number >= 10">E{{episode.number}}</td>
+                        <td *ngIf="season.number < 10" style="text-align:center;">S0{{season.number}}</td>
+                        <td *ngIf="season.number >= 10" style="text-align:center;">S{{season.number}}</td>
+                        <td *ngIf="episode.number < 10" style="text-align:center;">E0{{episode.number}}</td>
+                        <td *ngIf="episode.number >= 10" style="text-align:center;">E{{episode.number}}</td>
                     </tr>
                     <tr>
                         <td></td>
