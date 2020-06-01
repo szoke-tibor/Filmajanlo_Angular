@@ -1,19 +1,41 @@
-<p><strong>Name: {{selectedActor.name}}</strong></p>
-<p>Biography: {{selectedActor.biography}}</p>
-<p>Born in {{selectedActor.birthplace}}, {{selectedActor.birthday}}</p>
-<p *ngIf="selectedActor.death">Death: {{selectedActor.death}}</p>
-<p *ngIf="selectedActor.homepage">Homepage: <a href="{{selectedActor.homepage}}">{{selectedActor.homepage}}</a></p>
-
-<div class="col-lg-3 panel panel-info">
-    <p><strong>Played in movies:</strong></p>
-    <p *ngFor="let movie of moviesOfActor">
-        {{movie.title}}
-    </p>
-</div>
-
-<div class="col-lg-3 panel panel-info">
-    <p><strong>Played in shows:</strong></p>
-    <p *ngFor="let show of showsOfActor">
-        {{show.title}}
-    </p>
+<div class="container col-lg-10">
+    <div class="row">
+        <div class="col">
+            <p><strong>Name: {{selectedActor.name}}</strong></p>
+            <p>Biography: {{selectedActor.biography}}</p>
+            <p>Born in {{selectedActor.birthplace}}, {{selectedActor.birthday}}</p>
+            <p *ngIf="selectedActor.death">Death: {{selectedActor.death}}</p>
+            <p *ngIf="selectedActor.homepage">Homepage: <a href="{{selectedActor.homepage}}">{{selectedActor.homepage}}</a></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col" *ngIf="moviesOfActor.length !== 0">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table-active">
+                        <td style="vertical-align: middle;text-align:center;"><strong>Played in movies:</strong></td>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let movie of moviesOfActor">
+                    <tr>
+                        <td style="vertical-align: middle;">{{movie.title}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col" *ngIf="showsOfActor.length !== 0">
+            <table class="table table-hover">
+                <thead>
+                    <tr class="table-active">
+                        <td style="vertical-align: middle;text-align:center;"><strong>Played in shows:</strong></td>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let show of showsOfActor">
+                    <tr>
+                        <td style="vertical-align: middle;">{{show.title}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

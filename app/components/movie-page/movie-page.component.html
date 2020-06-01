@@ -48,28 +48,28 @@
         </table>
         </div>
         <div class="col">
-            <h4 class="text-info" *ngIf="selectedMovie">
-                <p>Title: {{selectedMovie.title}}</p>
-                <p>Year: {{selectedMovie.year}}</p>
-                <p>Rating: {{selectedMovie.rating}}</p>
-                <p>Trailer: <a href="{{selectedMovie.trailer}}">Link</a></p>
-                <p>Language: {{selectedMovie.language}}</p>
+            <h4 *ngIf="selectedMovie">
+                <p><strong class="text-info">Title: </strong>{{selectedMovie.title}}</p>
+                <p><strong class="text-info">Year: </strong>{{selectedMovie.year}}</p>
+                <p><strong class="text-info">Rating: </strong>{{selectedMovie.rating}}</p>
+                <p><strong class="text-info">Trailer: </strong><a href="{{selectedMovie.trailer}}">Link</a></p>
+                <p><strong class="text-info">Language: </strong>{{selectedMovie.language}}</p>
                 <p>
-                    Genres:
+                    <strong class="text-info">Genres: </strong>
                     <em *ngFor="let genre of selectedMovie.genres">
                         {{genre}}
                     </em>
                 </p>
-                <p>Description:</p>
+                <p><strong class="text-info">Description: </strong></p>
                 <p>{{selectedMovie.overview}}</p>
             </h4>
             <h5 *ngIf="selectedMovie">
                 <div class="col">
                     <p>Actors:</p>
                     <p>
-                        <a (click)="selectedActor = actor;goActorPage()" *ngFor="let actor of selectedMovie.actors">
+                        <a class="actor" (click)="selectedActor = actor;goActorPage()" *ngFor="let actor of selectedMovie.actors">
                             - {{actor.name}}
-                        </a>
+                        </a> -
                     </p>
                 </div>
             </h5>
