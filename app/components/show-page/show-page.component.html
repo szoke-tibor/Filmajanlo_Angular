@@ -1,59 +1,86 @@
-<div class="col-lg-3 panel panel-info">
-    <input class="form-control" placeholder="Search for shows..." [(ngModel)]="queryString"
+<div class="container col-lg-10">
+    <div class="row">
+        <div class="col">
+            <input class="form-control" placeholder="Search for movies..." [(ngModel)]="queryString"
             (keyup)="currentPage=1;getShows()">
-    <div *ngFor="let show of shows">
-        <dt>
-            <a [class.active]="show === selectedShow" (click)="selectedShow = show;getActors();getEpisodesForShow()">
-                <h6 class="text-info">Title:{{show.title}}
-                <p>Year:{{show.year}}</p></h6>
-            </a>
-        </dt>
-    </div>
-    <div class="paging">
-        <button class="col-xs-4 btn btn-info" [disabled]="currentPage <= 1"
-            (click)="currentPage=currentPage-1;getShows()">
-            <i class="glyphicon glyphicon-chevron-left"></i>
-        </button>
-        <div class="col-xs-4 page-numbers">
-            {{currentPage}}
+        <table class="table table-hover">
+            <tbody *ngFor="let show of shows">
+                <tr>
+                    <a [class.active]="show === selectedShow"
+                                        (click)="selectedShow = show;
+                                        getActors();
+                                        getEpisodesForShow()">
+                        <th>
+                            <button type="button" class="btn btn-primary">Select</button>
+                        </th>
+                    </a>
+                    <td>{{show.title}}</td>
+                    <td>Year: {{show.year}}</td>
+                    <td>Runtime: {{show.runtime}} minutes</td>
+                </tr>
+            </tbody>
+            <tbody>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <button type="button" class="btn btn-primary" [disabled]="currentPage <= 1"
+                                    (click)="currentPage=currentPage-1;getShows()">
+                        &laquo;
+                    </button>
+                    {{currentPage}}
+                    <button type="button" class="btn btn-primary" [disabled]="lastPage"
+                                    (click)="currentPage=currentPage+1;getShows()">
+                        &raquo;
+                    </button>
+                </td>
+            </tbody>
+        </table>
         </div>
-        <button class="col-xs-4 btn btn-info" [disabled]="lastPage"
-            (click)="currentPage=currentPage+1;getShows()">
-            <i class="glyphicon glyphicon-chevron-right"></i>
-        </button>
+        <div class="col">
+            <h4 class="text-info" *ngIf="selectedShow">
+                <p>Title: {{selectedShow.title}}</p>
+                <p>Year: {{selectedShow.year}}</p>
+                <p>Trailer: <a href="{{selectedShow.trailer}}">Link</a></p>
+                <p>Language: {{selectedShow.language}}</p>
+                <p>
+                    Genres:
+                    <em *ngFor="let genre of selectedShow.genres">
+                        {{genre}}
+                    </em>
+                </p>
+                <p>Description:</p>
+                <p>{{selectedShow.overview}}</p>
+            </h4>
+            <h5 *ngIf="selectedShow">
+                <div class="col">
+                    <p>Actors:</p>
+                    <p>
+                        <a (click)="selectedActor = actor;goActorPage()" *ngFor="let actor of selectedShow.actors">
+                            - {{actor.name}}
+                        </a>
+                    </p>
+                </div>
+            </h5>
+        </div>
     </div>
-</div>
-
-<div class="col-lg-3 panel panel-info" *ngIf="selectedShow">
-    <h6 class="text-info">
-        <p>Title: {{selectedShow.title}}</p>
-        <p>Year: {{selectedShow.year}}</p>
-        <p>Rating: {{selectedShow.rating}}</p>
-        <p>Runtime: {{selectedShow.runtime}} minutes</p>
-        <p>Trailer: <a href="{{selectedShow.trailer}}">Link</a></p>
-        <p>Language: {{selectedShow.language}}</p>
-        <p>
-            Genres:
-            <em *ngFor="let genre of selectedShow.genres">
-                {{genre}}
-            </em>
-        </p>
-        <p>Description:</p>
-        <p>{{selectedShow.overview}}</p>
-        <p>Actors:</p>
-        <p *ngFor="let actor of selectedShow.actors">
-            <a (click)="selectedActor = actor;goActorPage()">
-                {{actor.name}}
-            </a>
-        </p>
-    </h6>
-</div>
-
-<div class="col-lg-3 panel panel-info" *ngIf="selectedShow">
-    <h6 *ngFor="let season of seasons">
-        <strong>Season {{season.number}}:</strong>
-        <p *ngFor="let episode of season.episodes">
-            {{episode.title}}
-        </p>
-    </h6>
+    <div class="row">
+        <div class="col">
+            <table class="table table-hover" *ngIf="selectedShow">
+                <tbody *ngFor="let season of seasons">
+                    <tr class="table-secondary" *ngFor="let episode of season.episodes">
+                        <td>{{episode.title}}</td>
+                        <td *ngIf="season.number < 10">S0{{season.number}}</td>
+                        <td *ngIf="season.number >= 10">S{{season.number}}</td>
+                        <td *ngIf="episode.number < 10">E0{{episode.number}}</td>
+                        <td *ngIf="episode.number >= 10">E{{episode.number}}</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col"></div>
+    </div>
 </div>
