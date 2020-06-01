@@ -61,8 +61,11 @@
                 <div class="col">
                     <p>Actors:</p>
                     <p>
-                        <a class="actor" (click)="selectedActor = actor;goActorPage()" *ngFor="let actor of selectedShow.actors">
-                            - {{actor.name}}
+                        <a class="actor" (click)="selectedActor = actor;
+                                                  saveToLocalStorage();
+                                                  goActorPage()"
+                            *ngFor="let actor of selectedShow.actors">
+                                - {{actor.name}}
                         </a> -
                     </p>
                 </div>

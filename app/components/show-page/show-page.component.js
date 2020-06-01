@@ -27,7 +27,10 @@ var ShowPageComponent = (function () {
     *   Meghívja a getShows() fv-t.
     */
     ShowPageComponent.prototype.ngOnInit = function () {
-        this.getShows();
+        if (!this.loadFromLocalStorage()) {
+            console.log("LOAD WITH GETTER");
+            this.getShows();
+        }
     };
     /*
     *   A konstruktorban beállított paraméterek segítségével
@@ -84,6 +87,32 @@ var ShowPageComponent = (function () {
                 throw "Hiba történt az adatlekérdezés során.";
             _this.seasons = seasons;
         });
+    };
+    ShowPageComponent.prototype.saveToLocalStorage = function () {
+        localStorage.setItem("showPage", JSON.stringify({
+            shows: this.shows,
+            selectedShow: this.selectedShow,
+            seasons: this.seasons,
+            pageSize: this.pageSize,
+            currentPage: this.currentPage,
+            lastPage: this.lastPage,
+            queryString: this.queryString
+        }));
+    };
+    ShowPageComponent.prototype.loadFromLocalStorage = function () {
+        var data = JSON.parse(localStorage.getItem('showPage'));
+        if (!data)
+            return false;
+        this.shows = data.shows;
+        this.selectedShow = data.selectedShow;
+        this.seasons = data.seasons;
+        this.pageSize = data.pageSize;
+        this.currentPage = data.currentPage;
+        this.lastPage = data.lastPage;
+        this.queryString = data.queryString;
+        console.log("LOAD FROM LOCALSTORAGE");
+        localStorage.removeItem("showPage");
+        return true;
     };
     return ShowPageComponent;
 }());

@@ -82,6 +82,9 @@ export class PersonPageComponent implements OnInit {
         });
     }
 
+    /*
+    *   Visszanavigál az előző oldalra a böngészőben.
+    */
     goBack() : void {
         this.location.back();
     }

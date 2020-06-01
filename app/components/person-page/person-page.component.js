@@ -81,6 +81,9 @@ var PersonPageComponent = (function () {
             people.cast.forEach(function (cast) { return _this.showsOfActor.push(cast.show); });
         });
     };
+    /*
+    *   Visszanavigál az előző oldalra a böngészőben.
+    */
     PersonPageComponent.prototype.goBack = function () {
         this.location.back();
     };

@@ -4,7 +4,7 @@ import { MovieService } from "../../services/movie.service";
 import { Person } from "../../models/person.type";
 import { PersonService } from "../../services/person.service";
 import { Router } from "@angular/router";
-import { SaveMoviePageData } from "../../models/saveData.type";
+import { SaveMoviePageData } from "../../models/SaveMoviePageData.type";
 
 @Component({
     selector: "movie-page",

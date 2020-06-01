@@ -5,6 +5,7 @@ import { Person } from "../../models/person.type";
 import { PersonService } from "../../services/person.service";
 import { Router } from "@angular/router";
 import { Season } from "../../models/season.type";
+import { SaveShowPageData } from "../../models/saveShowPageData.type";
 
 @Component({
     selector: "show-page",
@@ -35,7 +36,10 @@ export class ShowPageComponent implements OnInit {
     *   Meghívja a getShows() fv-t.
     */
     ngOnInit(): void {
-        this.getShows();
+        if (!this.loadFromLocalStorage()) {
+            console.log("LOAD WITH GETTER");
+            this.getShows();
+        }
     }
 
     /*
@@ -93,5 +97,35 @@ export class ShowPageComponent implements OnInit {
                 throw "Hiba történt az adatlekérdezés során.";
             this.seasons = seasons;
         });
+    }
+
+    saveToLocalStorage() : void {
+        localStorage.setItem("showPage", JSON.stringify(<SaveShowPageData>{
+            shows: this.shows,
+            selectedShow: this.selectedShow,
+            seasons: this.seasons,
+            pageSize: this.pageSize,
+            currentPage: this.currentPage,
+            lastPage: this.lastPage,
+            queryString: this.queryString
+        }));
+    }
+
+    loadFromLocalStorage() : boolean {
+        let data = JSON.parse(localStorage.getItem('showPage'));
+        if(!data)
+            return false;
+
+        this.shows = data.shows;
+        this.selectedShow = data.selectedShow;
+        this.seasons = data.seasons;
+        this.pageSize = data.pageSize;
+        this.currentPage = data.currentPage;
+        this.lastPage = data.lastPage;
+        this.queryString = data.queryString;
+        
+        console.log("LOAD FROM LOCALSTORAGE");
+        localStorage.removeItem("showPage");
+        return true;
     }
 }
